@@ -15,7 +15,7 @@
 - **Real-time Hint**: 단계별 실시간 힌트 시스템
 - **Ranking**: 탈출 시간을 기록하고 다른 유저와 경쟁하는 명예의 전당
 
-## 🛠 기술 스택
+## 기술 스택
 ### Frontend
 - **Framework**: React (JavaScript)
 - **Router**: React Router Dom
@@ -25,7 +25,7 @@
 - **Framework**: Nest.js
 - **Database**: MySQL
 
-## 📂 폴더 구조
+## 폴더 구조
 ```text
 src/
 ├── assets/       # 이미지 및 사운드 리소스
