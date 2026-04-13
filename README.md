@@ -25,6 +25,29 @@
 - **Framework**: Nest.js
 - **Database**: MySQL
 
+## 실행 방법
+### 레포 가져오기
+```bash
+$ git clone https://github.com/Team-Crispy/404NotFound-front.git
+```
+### 의존성 설치 및 실행
+```bash
+$ cd 404NotFound-front
+$ npm install
+$ npm run dev
+```
+### 개발 전
+```bash
+$ git switch user/[github_id]
+$ git pull origin dev
+```
+### 푸쉬할때
+```bash
+$ git add .
+$ git commit -m "커밋 메시지"
+$ git push origin user/[github_id]
+```
+
 ## 폴더 구조
 ```text
 src/
