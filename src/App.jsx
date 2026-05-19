@@ -1,23 +1,20 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 
-import Home from './pages/Home/Home';
-import Lobby from './pages/Lobby/Lobby';
-import GameContainer from './pages/Game/GameContainer';
-import Ranking from './pages/Ranking/Ranking';
-import Ending from './pages/Ending/Ending';
+import BlogPage from './pages/Blog/BlogPage';
+import RoomPage from './pages/Room/RoomPage';
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/lobby" element={<Lobby />} />
-        <Route path="/game/:themeId" element={<GameContainer />} />
-        <Route path="/ranking" element={<Ranking />} />
-        <Route path="/ending" element={<Ending />} />
+        <Route path="/" element={<RoomPage />} />
+        <Route path="/room" element={<RoomPage />} />
+        <Route path="/blog" element={<BlogPage variant="normal" />} />
+        <Route path="/blog-corrupt" element={<BlogPage variant="corrupt" />} />
+        <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </BrowserRouter>
   );
 }
 
-export default App
+export default App;
