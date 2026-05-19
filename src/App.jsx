@@ -10,7 +10,7 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<Home />} />        
         <Route path="/lobby" element={<Lobby />} />
         <Route path="/game/:themeId" element={<GameContainer />} />
         <Route path="/ranking" element={<Ranking />} />
@@ -20,4 +20,4 @@ function App() {
   );
 }
 
-export default App
+export default App;
