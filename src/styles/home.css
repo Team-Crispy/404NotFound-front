@@ -1,15 +1,77 @@
-.container {
-  padding: 20px;
-  background-color: #f5f5f5;
-  text-align: center;
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden; 
 }
 
-.title {
-  color: #ff4757; 
-  font-size: 2.5rem;
+/* 배경 화면 */
+.background {
+    position: relative; 
+    width: 100vw;
+    height: 100vh;
+    background: url(../assets/background.svg) no-repeat center center / cover;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-.description {
-  color: #2f3542;
-  font-size: 1.2rem;
+
+/* 설정 버튼 */
+.settings-btn-wrapper {
+    position: absolute; 
+    bottom: 35px;         
+    left: 70px;       
+    
+    background: none;  
+    border: none;      
+    padding: 0;        
+    cursor: pointer;   
+    outline: none; 
+    
+    transition: transform 0.2s; 
+}
+
+.settings-icon-img {
+    width: 105px;  
+    height: 138px; 
+    display: block; 
+}
+
+.settings-btn-wrapper:hover {
+    opacity: 0.8; 
+    transform: scale(1.05); 
+}
+
+/* 메뉴 버튼 설정 */
+.center-menu {
+    position: absolute;
+    top: 558px;                  
+    left: 697px;
+    
+    display: flex;
+    flex-direction: column;   
+    align-items: center;       
+    gap: 20px;                
+}
+
+.menu-btn {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    outline: none;
+    
+    transition: transform 0.2s; 
+}
+
+.menu-btn:hover {
+    /* transform: scale(1.08);  */
+}
+
+.menu-icon-img {
+    width: 527px;    
+    height: 111px;     
+    display: block;
 }
