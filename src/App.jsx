@@ -1,23 +1,33 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 
+import GameOverOverlay from './components/game/GameOverOverlay';
+import BlogPage from './pages/Blog/BlogPage';
+import Ending from './pages/Ending/Ending';
+import GameContainer from './pages/Game/GameContainer';
 import Home from './pages/Home/Home';
 import Login from './pages/Home/Login';
 import Lobby from './pages/Lobby/Lobby';
-import GameContainer from './pages/Game/GameContainer';
 import Ranking from './pages/Ranking/Ranking';
-import Ending from './pages/Ending/Ending';
+import RoomPage from './pages/Room/RoomPage';
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Home />} /> 
-        <Route path="/Login" element={<Login />} />       
+        <Route path="/" element={<Home />} />
+        <Route path="/Login" element={<Login />} />
         <Route path="/lobby" element={<Lobby />} />
         <Route path="/game/:themeId" element={<GameContainer />} />
         <Route path="/ranking" element={<Ranking />} />
         <Route path="/ending" element={<Ending />} />
+        <Route path="/room" element={<RoomPage />} />
+        <Route path="/blog" element={<BlogPage variant="normal" />} />
+        <Route path="/blog/:postId" element={<BlogPage variant="normal" />} />
+        <Route path="/blog-corrupt" element={<BlogPage variant="corrupt" />} />
+        <Route path="/blog-corrupt/:postId" element={<BlogPage variant="corrupt" />} />
+        <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
+      <GameOverOverlay />
     </BrowserRouter>
   );
 }
