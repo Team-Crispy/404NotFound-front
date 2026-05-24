@@ -1,9 +1,9 @@
 import { useTimer } from '../../hooks/useTimer';
 
 function GameOverOverlay() {
-  const { isTimeOver, resetTimer } = useTimer();
+  const { isStarted, isTimeOver, resetTimer } = useTimer();
 
-  if (!isTimeOver) {
+  if (!isStarted || !isTimeOver) {
     return null;
   }
 
