@@ -1,6 +1,7 @@
-import { useState } from 'react'; 
+import { useEffect, useState } from 'react'; 
 import { useNavigate } from 'react-router-dom'; 
 import '../../styles/home.css';
+import { useTimer } from '../../hooks/useTimer';
 
 import SettingButton from '../../assets/SettingButton.svg';
 import Start_Btn from '../../assets/Start.svg';
@@ -13,10 +14,15 @@ import Ranking_red from '../../assets/Ranking_red.svg';
 
 function Home() {
   const navigate = useNavigate(); 
+  const { stopTimer } = useTimer();
 
   const [isStartHover, setIsStartHover] = useState(false);
   const [isTutorialHover, setIsTutorialHover] = useState(false);
   const [isRankingHover, setIsRankingHover] = useState(false);
+
+  useEffect(() => {
+    stopTimer();
+  }, [stopTimer]);
 
   return (
     <div className="background">

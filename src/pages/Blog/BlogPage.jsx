@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Link, Navigate, useNavigate, useParams } from 'react-router-dom';
 
 import Timer from '../../components/game/Timer';
@@ -195,14 +196,24 @@ function BlogDetail({ isCorrupt }) {
 function BlogPage({ variant }) {
   const isCorrupt = variant === 'corrupt';
   const { postId } = useParams();
+  const navigate = useNavigate();
+  const [isClosing, setIsClosing] = useState(false);
+
+  const handleClose = () => {
+    setIsClosing(true);
+    window.setTimeout(() => {
+      navigate('/room');
+    }, 520);
+  };
 
   return (
     <main className={isCorrupt ? 'blog-page corrupt' : 'blog-page'}>
+      <img className="blog-room-bg" src="/room-assets/background.png" alt="" />
       <Timer className="blog-background-timer" />
-      <section className="blog-laptop" aria-label={isCorrupt ? '깨진 블로그 화면' : '블로그 화면'}>
-        <Link className="blog-back" to="/room">
+      <section className={isClosing ? 'blog-laptop closing' : 'blog-laptop'} aria-label={isCorrupt ? '깨진 블로그 화면' : '블로그 화면'}>
+        <button className="blog-back" type="button" onClick={handleClose}>
           그만보기
-        </Link>
+        </button>
 
         <div className="blog-document">
           <header className="blog-titlebar">

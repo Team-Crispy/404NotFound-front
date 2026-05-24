@@ -1,8 +1,16 @@
+import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 import Timer from '../../components/game/Timer';
+import { useTimer } from '../../hooks/useTimer';
 
 function RoomPage() {
+  const { startTimer } = useTimer();
+
+  useEffect(() => {
+    startTimer();
+  }, [startTimer]);
+
   return (
     <main className="prototype-screen">
       <section className="prototype-stage room-stage" aria-label="수사 메인 게임 화면">
