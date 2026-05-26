@@ -11,13 +11,12 @@ function Login() {
         setNickname(e.target.value);
     };
 
-    // 💡 3. 버튼 클릭 시 다음 페이지로 이동하는 함수
     const handleNextPage = () => {
         if (nickname.trim()) {
-            navigate('/main'); 
+            navigate('/lobby.jsx'); 
             
             // 만약 다음 페이지로 닉네임 데이터도 같이 넘겨주고 싶다면 아래처럼 보낼 수 있습니다.
-            // navigate('/main', { state: { name: nickname } });
+            // navigate('/lobby.jsx', { state: { name: nickname } });
         }
     };
 

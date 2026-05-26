@@ -9,6 +9,7 @@ import Login from './pages/Home/Login';
 import Lobby from './pages/Lobby/Lobby';
 import Ranking from './pages/Ranking/Ranking';
 import RoomPage from './pages/Room/RoomPage';
+import Tutorial from './pages/Home/Tutorial';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/Login" element={<Login />} />
+        <Route path="/Tutorial" element={<Tutorial />} />
         <Route path="/lobby" element={<Lobby />} />
         <Route path="/game/:themeId" element={<GameContainer />} />
         <Route path="/ranking" element={<Ranking />} />

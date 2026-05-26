@@ -1,0 +1,51 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.tutorial-background {
+    width: 100vw;
+    height: 100vh;
+    position: relative; 
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background-size: cover;
+    background-position: center;
+}
+
+.ok_btn {
+    position: absolute; 
+    top: 984px;      
+    left: 1686px;      
+    background: none;
+    border: none;
+    cursor: pointer;
+    
+    transition: transform 0.2s ease-in-out;
+}
+
+.ok_btn img {
+    display: block;
+    transition: filter 0.2s ease-in-out;
+}
+
+.ok_btn:hover {
+    animation: bounceAnimation 0.5s infinite ease-in-out;
+}
+
+.ok_btn:hover img {
+    filter: saturate(2.5) brightness(1.2) drop-shadow(0 0 10px rgba(255, 0, 0, 0.6));
+}
+
+@keyframes bounceAnimation {
+    0%, 100% {
+        transform: translateY(0) scale(1);
+    }
+    50% {
+        transform: translateY(-10px) scale(1.02);
+    }
+}
