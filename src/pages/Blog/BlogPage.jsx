@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, Navigate, useNavigate, useParams } from 'react-router-dom';
 
 import Timer from '../../components/game/Timer';
@@ -197,7 +197,18 @@ function BlogPage({ variant }) {
   const isCorrupt = variant === 'corrupt';
   const { postId } = useParams();
   const navigate = useNavigate();
+  const [hasOpened, setHasOpened] = useState(false);
   const [isClosing, setIsClosing] = useState(false);
+
+  useEffect(() => {
+    const frameId = window.requestAnimationFrame(() => {
+      setHasOpened(true);
+    });
+
+    return () => {
+      window.cancelAnimationFrame(frameId);
+    };
+  }, []);
 
   const handleClose = () => {
     setIsClosing(true);
@@ -210,7 +221,7 @@ function BlogPage({ variant }) {
     <main className={isCorrupt ? 'blog-page corrupt' : 'blog-page'}>
       <img className="blog-room-bg" src="/room-assets/background.png" alt="" />
       <Timer className="blog-background-timer" />
-      <section className={isClosing ? 'blog-laptop closing' : 'blog-laptop'} aria-label={isCorrupt ? '깨진 블로그 화면' : '블로그 화면'}>
+      <section className={`blog-laptop ${hasOpened ? 'opening' : ''} ${isClosing ? 'closing' : ''}`} aria-label={isCorrupt ? '깨진 블로그 화면' : '블로그 화면'}>
         <button className="blog-back" type="button" onClick={handleClose}>
           그만보기
         </button>
