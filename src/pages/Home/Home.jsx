@@ -19,6 +19,9 @@ function Home() {
   const [isStartHover, setIsStartHover] = useState(false);
   const [isTutorialHover, setIsTutorialHover] = useState(false);
   const [isRankingHover, setIsRankingHover] = useState(false);
+  
+  // 설정 모달 창의 열림/닫힘 상태 관리
+  const [isSettingsOpen, setIsSettingsOpen] = useState(false);
 
   useEffect(() => {
     stopTimer();
@@ -43,7 +46,7 @@ function Home() {
 
         <button 
           className="menu-btn" 
-          onClick={() => navigate('/tutorial')}
+          onClick={() => navigate('/Tutorial')}
           onMouseEnter={() => setIsTutorialHover(true)}
           onMouseLeave={() => setIsTutorialHover(false)}
         >
@@ -68,9 +71,34 @@ function Home() {
         </button>
       </div>
 
-      <button className="settings-btn-wrapper" onClick={() => navigate('/settings')}>
+      {/* 설정 버튼 클릭 시 모달 상태를 true로 변경 */}
+      <button className="settings-btn-wrapper" onClick={() => setIsSettingsOpen(true)}>
         <img src={SettingButton} alt="설정" className="settings-icon-img" />
       </button>
+
+      {/* 설정 모달 창 구조 레이어 */}
+      {isSettingsOpen && (
+        <div className="modal-overlay" onClick={() => setIsSettingsOpen(false)}>
+          {/* 부모 레이어 클릭 시 닫히되, 모달 몸통 안쪽을 클릭할 때는 이벤트가 버블링되지 않도록 방지 */}
+          <div className="settings-modal" onClick={(e) => e.stopPropagation()}>
+            <h2 className="modal-title">SETTINGS</h2>
+            
+            <div className="setting-item">
+              <span>BGM Volume</span>
+              <input type="range" min="0" max="100" className="volume-slider" />
+            </div>
+
+            <div className="setting-item">
+              <span>SFX Volume</span>
+              <input type="range" min="0" max="100" className="volume-slider" />
+            </div>
+
+            <button className="modal-close-btn" onClick={() => setIsSettingsOpen(false)}>
+              CLOSE
+            </button>
+          </div>
+        </div>
+      )}
 
     </div>
   );
