@@ -1,9 +1,16 @@
+import bg from "../../assets/Ranking_Background.png";
+
 function Ranking() {
   return (
-    <div>
-      <h1>404 Not Found - 랭킹 화면</h1>
-      <p></p>
-    </div>
+    <img
+      src={bg}
+      alt="배경"
+      style={{
+        width: "100vw",
+        height: "100vh",
+        objectFit: "cover",
+      }}
+    />
   );
 }
 
