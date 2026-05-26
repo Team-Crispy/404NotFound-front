@@ -1,0 +1,77 @@
+.rank-badge {
+  width: 72px;
+  height: 58px;
+
+  border-radius: 12px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-size: 32px;
+  font-weight: 800;
+
+  flex-shrink: 0;
+}
+
+/* 1등 */
+.gold {
+  background: #efe57a;
+  color: black;
+}
+
+/* 2등 */
+.silver {
+  background: #d8d8d8;
+  color: black;
+}
+
+/* 3등 */
+.bronze {
+  background: #d7af67;
+  color: black;
+}
+
+/* 4등 이하 */
+.default {
+  background: #ffffff;
+  color: black;
+}
+.user-info {
+  margin-left: 22px;
+  width: 100%;
+}
+
+.top-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+}
+
+.nickname {
+  font-size: 28px;
+  font-weight: 500;
+  color: #5c4637;
+
+  min-width: 190px;
+}
+
+.comment {
+  font-size: 18px;
+  line-height: 1.4;
+
+  color: #9f9187;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.time {
+  font-size: 16px;
+  color: #9f9187;
+
+  margin-top: 2px;
+
+  display: block;
+}
