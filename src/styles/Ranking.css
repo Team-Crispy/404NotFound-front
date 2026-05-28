@@ -1,77 +1,94 @@
-.rank-badge {
-  width: 72px;
-  height: 58px;
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap');
 
-  border-radius: 12px;
-
+.ranking-page {
+  position: relative;
   display: flex;
-  justify-content: center;
   align-items: center;
-
-  font-size: 32px;
-  font-weight: 800;
-
-  flex-shrink: 0;
+  justify-content: center;
+  font-family: 'Noto Sans KR', sans-serif;
 }
 
-/* 1등 */
-.gold {
-  background: #efe57a;
-  color: black;
-}
-
-/* 2등 */
-.silver {
-  background: #d8d8d8;
-  color: black;
-}
-
-/* 3등 */
-.bronze {
-  background: #d7af67;
-  color: black;
-}
-
-/* 4등 이하 */
-.default {
-  background: #ffffff;
-  color: black;
-}
-.user-info {
-  margin-left: 22px;
-  width: 100%;
-}
-
-.top-row {
+/* 카드가 들어갈 영역 — 이미지 속 흰 종이 위치에 맞게 조정 */
+.ranking-card-area {
+  position: absolute;
+  top: 53%;
+  left: 50%;
+  transform: translate(-50%, -42%);
+  width: 46vw;
+  max-width: 680px;
+  
+  max-height: 70vh;     /* 클립보드 흰 종이 높이에 맞게 조정 */
+  overflow-y: auto;
+  
   display: flex;
-  align-items: flex-start;
-  gap: 20px;
+  flex-direction: column;
+  gap: 14px;
+  
+  /* 스크롤바 숨기기 (선택) */
+  scrollbar-width: none;
 }
 
-.nickname {
-  font-size: 28px;
-  font-weight: 500;
-  color: #5c4637;
+/* .ranking-card-area::-webkit-scrollbar {
+  display: none;
+} */
 
-  min-width: 190px;
+/* 개별 순위 카드 */
+.rank-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: #fef9f3;
+  border: 1px solid #e5d0b5;
+  border-radius: 12px;
+  padding: 14px 18px;
+  box-shadow: 0 6px 5px rgba(140, 90, 30, 0.15);  /* 여기 추가 */
 }
 
-.comment {
-  font-size: 18px;
-  line-height: 1.4;
 
-  color: #9f9187;
 
+/* 순위 뱃지 */
+.rank-badge {
+  flex-shrink: 0;
+  width: 48px;
+  height: 48px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+
+.rank-badge.gold   { background: #f0c040; color: #6b4800; }
+.rank-badge.silver { background: #b8c4d0; color: #2e3f52; }
+.rank-badge.bronze { background: #c98a3a; color: #5c2e00; }
+.rank-badge.default { background: #e8dece; color: #7a6040; }
+
+/* 텍스트 영역 */
+.rank-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.rank-name {
+  font-size: 16px;
+  font-weight: 700;
+  color: #3d2a10;
+  margin: 0 0 2px;
+}
+
+.rank-time {
+  font-size: 13px;  /* 12px → 13px */
+  color: #917152;
+  margin: 0 0 2px;
+}
+
+.rank-desc {
+  font-size: 13px;  /* 12px → 13px */
+  color: #917152;
+  margin-top: -2px;  /* 위로 올리기 */
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-}
-
-.time {
-  font-size: 16px;
-  color: #9f9187;
-
-  margin-top: 2px;
-
-  display: block;
 }
