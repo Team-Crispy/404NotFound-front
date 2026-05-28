@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap');
+
 html, body {
     margin: 0;
     padding: 0;
@@ -20,8 +22,8 @@ html, body {
 
 .nickname-input {
     position: absolute;   
-    left: 600px;         
-    top: 840px;          
+    left: 618px;         
+    top: 845px;          
     
     width: 274px;
     height: 62px;
@@ -42,8 +44,10 @@ html, body {
         inset 0 0 0 transparent, 
         -1px -1px 1px rgba(0, 0, 0, 0.7),    
         1px 1px 1px rgba(255, 255, 255, 0.3); 
-        letter-spacing: 6px; 
+    letter-spacing: 6px; 
     text-indent: 6px;
+
+    font-family: 'Gowun Dodum', sans-serif;
 }
 
 .nickname-input:focus {
@@ -75,7 +79,17 @@ html, body {
     display: block;
     width: 175px; 
     height: 62px;
+    
+    transition: filter 0.2s ease-in-out, transform 0.2s ease-in-out;
 }
+
+.ok-button:hover img {
+
+    filter: saturate(2.5) brightness(1.2) drop-shadow(0 0 10px rgba(240, 37, 37, 0.6));
+    
+    transform: scale(1.02);
+}
+
 
 @keyframes fadeIn {
     from {
