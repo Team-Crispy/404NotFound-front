@@ -10,6 +10,9 @@
 
 /* 카드가 들어갈 영역 — 이미지 속 흰 종이 위치에 맞게 조정 */
 .ranking-card-area {
+  list-style: none;
+  margin: 0;
+  padding: 0;
   position: absolute;
   top: 53%;
   left: 50%;
@@ -25,9 +28,25 @@
   gap: 14px;
   
   /* 스크롤바 숨기기 (선택) */
-  scrollbar-width: none;
+  /* scrollbar-width: none; */
+}
+.ranking-card-area::-webkit-scrollbar {
+  width: 8px;
 }
 
+.ranking-card-area::-webkit-scrollbar-track {
+  background: #f3e6d6;
+  border-radius: 10px;
+}
+
+.ranking-card-area::-webkit-scrollbar-thumb {
+  background: #b38a5f;
+  border-radius: 10px;
+}
+
+.ranking-card-area::-webkit-scrollbar-thumb:hover {
+  background: #62462b;
+}
 /* .ranking-card-area::-webkit-scrollbar {
   display: none;
 } */

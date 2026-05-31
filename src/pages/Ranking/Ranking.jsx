@@ -1,4 +1,5 @@
 import bg from "../../assets/Ranking_Background.png";
+import RankingCard from "../../components/common/RankingCard";
 import "../../styles/Ranking.css";
 
 const RANKINGS = [
@@ -64,13 +65,6 @@ const RANKINGS = [
   },
 ];
 
-function getBadgeClass(rank) {
-  if (rank === 1) return "gold";
-  if (rank === 2) return "silver";
-  if (rank === 3) return "bronze";
-  return "default";
-}
-
 function Ranking() {
   return (
     <div
@@ -83,18 +77,10 @@ function Ranking() {
         backgroundPosition: "center",
       }}
     >
-      {/* 배경 이미지(나무판+클립보드+테이프)가 깔려 있고, 카드만 그 위에 올라감 */}
-      <ul className="ranking-card-area" style={{ listStyle: "none", margin: 0, padding: 0 }}>
+      <ul className="ranking-card-area">
         {RANKINGS.map((item) => (
           <li key={item.rank}>
-            <div className="rank-card">
-              <div className={`rank-badge ${getBadgeClass(item.rank)}`}>#{item.rank}</div>
-              <div className="rank-info">
-                <p className="rank-name">{item.name}</p>
-                <p className="rank-time">{item.time}</p>
-                <p className="rank-desc">{item.desc}</p>
-              </div>
-            </div>
+            <RankingCard rank={item.rank} name={item.name} time={item.time} desc={item.desc} />
           </li>
         ))}
       </ul>
