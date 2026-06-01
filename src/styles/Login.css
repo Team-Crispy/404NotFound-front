@@ -12,29 +12,40 @@ html, body {
     width: 100vw;
     height: 100vh;
     background: url(../assets/nickname.svg) no-repeat center center / cover;
-    
-    position: relative; 
-    
+
+    position: relative;
+
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
+.login-stage {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: max(100vw, 173.2407vh);
+    height: max(100vh, 57.7231vw);
+    transform: translate(-50%, -50%);
+}
+
 .nickname-input {
-    position: absolute;   
-    left: 618px;         
-    top: 845px;          
-    
-    width: 274px;
-    height: 62px;
-    font-size: 30px;         
-    border: 0px solid #fff;   
-    border-radius: 8px;       
-    outline: none;            
+    position: absolute;
+    left: 32.18%;
+    top: 77.59%;
+
+    width: 14.64%;
+    height: 5.74%;
+    border: 0;
+    border-radius: 5px;
+    outline: none;
+    padding: 0 0.75%;
+    font-size: clamp(18px, 2.78vh, 30px);
+    line-height: 1;
     text-align: center;
     transition: all 0.3s;
 
-    color: #16161883; 
+    color: rgba(22, 22, 24, 0.72);
     background-color: transparent;
 
     -webkit-font-smoothing: antialiased;
@@ -44,10 +55,11 @@ html, body {
         inset 0 0 0 transparent, 
         -1px -1px 1px rgba(0, 0, 0, 0.7),    
         1px 1px 1px rgba(255, 255, 255, 0.3); 
-    letter-spacing: 6px; 
-    text-indent: 6px;
+    letter-spacing: 0.32vw;
+    text-indent: 0.32vw;
 
     font-family: 'Gowun Dodum', sans-serif;
+    caret-color: rgba(22, 22, 24, 0.9);
 }
 
 .nickname-input:focus {
@@ -62,10 +74,12 @@ html, body {
 
 .ok-button {
     position: absolute;
-    
-    left: 1275px;         
-    top: 665px;        
-    
+
+    left: 68.15%;
+    top: 61.57%;
+    width: 9.35%;
+    height: 5.74%;
+
     background: none;
     border: none;
     padding: 0;
@@ -77,9 +91,9 @@ html, body {
 
 .ok-button img {
     display: block;
-    width: 175px; 
-    height: 62px;
-    
+    width: 100%;
+    height: auto;
+
     transition: filter 0.2s ease-in-out, transform 0.2s ease-in-out;
 }
 
