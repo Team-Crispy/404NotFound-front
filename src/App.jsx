@@ -1,20 +1,22 @@
-import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 
-import GameOverOverlay from './components/game/GameOverOverlay';
-import BlogPage from './pages/Blog/BlogPage';
-import Ending from './pages/Ending/Ending';
-import GameContainer from './pages/Game/GameContainer';
-import Home from './pages/Home/Home';
-import Login from './pages/Home/Login';
-import Lobby from './pages/Lobby/Lobby';
-import Ranking from './pages/Ranking/Ranking';
-import RoomPage from './pages/Room/RoomPage';
-import Tutorial from './pages/Home/Tutorial';
+import GameOverOverlay from "./components/game/GameOverOverlay";
+import BlogPage from "./pages/Blog/BlogPage";
+import Ending from "./pages/Ending/Ending";
+import GameContainer from "./pages/Game/GameContainer";
+import Home from "./pages/Home/Home";
+import Login from "./pages/Home/Login";
+import Lobby from "./pages/Lobby/Lobby";
+import Ranking from "./pages/Ranking/Ranking";
+import RoomPage from "./pages/Room/RoomPage";
+import Tutorial from "./pages/Home/Tutorial";
+import SuspectSelect from "./pages/SuspectSelect/SuspectSelect";
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
+        <Route path="/" element={<SuspectSelect />} />
         <Route path="/" element={<Home />} />
         <Route path="/Login" element={<Login />} />
         <Route path="/Tutorial" element={<Tutorial />} />
