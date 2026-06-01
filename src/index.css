@@ -219,12 +219,14 @@ a {
 }
 
 .note-object {
+  z-index: 3;
   left: 16.9%;
   top: 62.2%;
   width: 35.1%;
 }
 
 .laptop-object {
+  z-index: 2;
   left: 34.55%;
   top: 39.55%;
   width: 46.72%;
