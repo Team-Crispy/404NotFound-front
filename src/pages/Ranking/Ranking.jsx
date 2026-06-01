@@ -1,4 +1,6 @@
+import { useNavigate } from "react-router-dom";
 import bg from "../../assets/Ranking_Background.png";
+import backBtn from "../../assets/back_Button.svg";
 import RankingCard from "../../components/common/RankingCard";
 import "../../styles/Ranking.css";
 
@@ -66,6 +68,7 @@ const RANKINGS = [
 ];
 
 function Ranking() {
+  const navigate = useNavigate();
   return (
     <div
       className="ranking-page"
@@ -77,6 +80,13 @@ function Ranking() {
         backgroundPosition: "center",
       }}
     >
+      <img
+        src={backBtn}
+        alt="뒤로가기"
+        onClick={() => navigate(-1)}
+        style={{ cursor: "pointer" }}
+        className="back-button"
+      />
       <ul className="ranking-card-area">
         {RANKINGS.map((item) => (
           <li key={item.rank}>
