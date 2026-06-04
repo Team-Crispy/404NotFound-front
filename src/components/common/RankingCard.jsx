@@ -1,4 +1,3 @@
-import bg from "../../assets/Ranking_Background.png";
 import "../../styles/Ranking.css";
 
 function getBadgeClass(rank) {

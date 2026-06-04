@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Background from "../../assets/Back_tutorial.svg"
 import "../../styles/Tutorial.css"
