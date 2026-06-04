@@ -1,0 +1,117 @@
+@import url('https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap');
+
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.login-background {
+    width: 100vw;
+    height: 100vh;
+    background: url(../assets/nickname.svg) no-repeat center center / cover;
+
+    position: relative;
+
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.login-stage {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: max(100vw, 173.2407vh);
+    height: max(100vh, 57.7231vw);
+    transform: translate(-50%, -50%);
+}
+
+.nickname-input {
+    position: absolute;
+    left: 32.18%;
+    top: 77.59%;
+
+    width: 14.64%;
+    height: 5.74%;
+    border: 0;
+    border-radius: 5px;
+    outline: none;
+    padding: 0 0.75%;
+    font-size: clamp(18px, 2.78vh, 30px);
+    line-height: 1;
+    text-align: center;
+    transition: all 0.3s;
+
+    color: rgba(22, 22, 24, 0.72);
+    background-color: transparent;
+
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+
+    text-shadow: 
+        inset 0 0 0 transparent, 
+        -1px -1px 1px rgba(0, 0, 0, 0.7),    
+        1px 1px 1px rgba(255, 255, 255, 0.3); 
+    letter-spacing: 0.32vw;
+    text-indent: 0.32vw;
+
+    font-family: 'Gowun Dodum', sans-serif;
+    caret-color: rgba(22, 22, 24, 0.9);
+}
+
+.nickname-input:focus {
+    outline: none;
+}
+
+.nickname-input::placeholder {
+    color: #aaa;       
+    letter-spacing: 0px; 
+    text-indent: 0px;    
+}
+
+.ok-button {
+    position: absolute;
+
+    left: 68.15%;
+    top: 61.57%;
+    width: 9.35%;
+    height: 5.74%;
+
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    outline: none;
+    
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+.ok-button img {
+    display: block;
+    width: 100%;
+    height: auto;
+
+    transition: filter 0.2s ease-in-out, transform 0.2s ease-in-out;
+}
+
+.ok-button:hover img {
+
+    filter: saturate(2.5) brightness(1.2) drop-shadow(0 0 10px rgba(240, 37, 37, 0.6));
+    
+    transform: scale(1.02);
+}
+
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-5px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
