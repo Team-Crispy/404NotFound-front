@@ -11,6 +11,7 @@ html, body {
 .background {
     width: 100vw;
     height: 100vh;
+    height: 100svh;
     position: relative; 
     margin: 0;
     padding: 0;
@@ -21,12 +22,12 @@ html, body {
 
 .center-menu {
     position: absolute;
-    top: 700px;
+    top: min(700px, 64.8svh);
     left: 50%;
     transform: translate(-50%, -40%); 
     display: flex;
     flex-direction: column;
-    gap: 15px; 
+    gap: clamp(8px, 1.4svh, 15px);
 }
 
 .menu-btn {
@@ -39,7 +40,7 @@ html, body {
 
 .menu-icon-img {
     display: block;
-    width: auto; 
+    width: min(527px, 80vw, 68svh);
     height: auto;
 }
 
