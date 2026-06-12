@@ -18,7 +18,6 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<SuspectSelect />} />
         <Route path="/" element={<Home />} />
         <Route path="/Login" element={<Login />} />
         <Route path="/Tutorial" element={<Tutorial />} />
@@ -32,6 +31,7 @@ function App() {
         <Route path="/blog-corrupt" element={<BlogPage variant="corrupt" />} />
         <Route path="/blog-corrupt/:postId" element={<BlogPage variant="corrupt" />} />
         <Route path="*" element={<Navigate to="/" replace />} />
+        <Route path="/SuspectSelect" element={<SuspectSelect />} />
       </Routes>
       <GameOverOverlay />
     </BrowserRouter>
