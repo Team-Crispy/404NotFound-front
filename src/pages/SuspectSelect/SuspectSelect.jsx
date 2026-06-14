@@ -1,7 +1,7 @@
 import bg from "../../assets/SuspectSelect_bg.png";
-import card1 from "../../assets/SuspectCard.svg";
-import card2 from "../../assets/SuspectCard.svg";
-import card3 from "../../assets/SuspectCard.svg";
+import card1 from "../../assets/jang.svg";
+import card2 from "../../assets/kangj.svg";
+import card3 from "../../assets/hany.svg";
 import tape1 from "../../assets/tape1.png";
 import tape2 from "../../assets/tape2.png";
 import tape3 from "../../assets/tape3.png";
@@ -12,9 +12,9 @@ const SUSPECTS = [
   {
     name: "장민후",
     card: card1,
-    top: "25%",
+    top: "230px",
     left: "28%",
-    rotate: -3,
+    rotate: 0,
     tapes: [{ img: tape1, top: "172px", left: "519px", rotate: 1 }],
   },
   {
