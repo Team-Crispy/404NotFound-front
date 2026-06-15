@@ -1,18 +1,19 @@
-import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 
-import GameOverOverlay from './components/game/GameOverOverlay';
-import BlogPage from './pages/Blog/BlogPage';
-import Ending from './pages/Ending/Ending';
-import EvidencePage from './pages/Evidence/EvidencePage';
-import GameContainer from './pages/Game/GameContainer';
-import Home from './pages/Home/Home';
-import Login from './pages/Home/Login';
-import Lobby from './pages/Lobby/Lobby';
-import NotePage from './pages/Note/NotePage';
-import Ranking from './pages/Ranking/Ranking';
-import RoomPage from './pages/Room/RoomPage';
-import Tutorial from './pages/Home/Tutorial';
-
+import GameOverOverlay from "./components/game/GameOverOverlay";
+import BlogPage from "./pages/Blog/BlogPage";
+import Ending from "./pages/Ending/Ending";
+import EvidencePage from "./pages/Evidence/EvidencePage";
+import GameContainer from "./pages/Game/GameContainer";
+import Home from "./pages/Home/Home";
+import Login from "./pages/Home/Login";
+import Lobby from "./pages/Lobby/Lobby";
+import NotePage from "./pages/Note/NotePage";
+import Ranking from "./pages/Ranking/Ranking";
+import RoomPage from "./pages/Room/RoomPage";
+import Tutorial from "./pages/Home/Tutorial";
+import SuspectSelect from "./pages/SuspectSelect/SuspectSelect";
+import Review from "./pages/Ending/Review";
 function App() {
   return (
     <BrowserRouter>
@@ -32,6 +33,8 @@ function App() {
         <Route path="/blog-corrupt" element={<BlogPage variant="corrupt" />} />
         <Route path="/blog-corrupt/:postId" element={<BlogPage variant="corrupt" />} />
         <Route path="*" element={<Navigate to="/" replace />} />
+        <Route path="/SuspectSelect" element={<SuspectSelect />} />
+        <Route path="/Review" element={<Review />} />
       </Routes>
       <GameOverOverlay />
     </BrowserRouter>
