@@ -1,17 +1,21 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
+import note1 from '../../assets/note1.svg';
+import note2 from '../../assets/note2.svg';
+import note3 from '../../assets/note3.svg';
+import note4 from '../../assets/note4.svg';
+
 const noteImages = [
-  '/images/note1.png',
-  '/images/note2.png',
-  '/images/note3.png',
-  '/images/mote4.png',
+  note1,
+  note2,
+  note3,
+  note4,
 ];
 
 function NotePage() {
   const [pageIndex, setPageIndex] = useState(0);
-  const [fourthImageSrc, setFourthImageSrc] = useState(noteImages[3]);
-  const currentSrc = pageIndex === 3 ? fourthImageSrc : noteImages[pageIndex];
+  const currentSrc = noteImages[pageIndex];
 
   const goPrev = () => {
     setPageIndex((current) => Math.max(0, current - 1));
@@ -19,12 +23,6 @@ function NotePage() {
 
   const goNext = () => {
     setPageIndex((current) => Math.min(noteImages.length - 1, current + 1));
-  };
-
-  const handleImageError = () => {
-    if (pageIndex === 3 && fourthImageSrc.endsWith('/mote4.png')) {
-      setFourthImageSrc('/images/note4.png');
-    }
   };
 
   return (
@@ -39,7 +37,6 @@ function NotePage() {
           className="note-page-image"
           src={currentSrc}
           alt={`note ${pageIndex + 1}`}
-          onError={handleImageError}
         />
 
         {pageIndex > 0 && (
