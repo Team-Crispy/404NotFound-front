@@ -222,11 +222,11 @@ function BlogPage({ variant }) {
       <img className="blog-room-bg" src="/room-assets/background.png" alt="" />
       <Timer className="blog-background-timer" />
       <section className={`blog-laptop ${hasOpened ? 'opening' : ''} ${isClosing ? 'closing' : ''}`} aria-label={isCorrupt ? '깨진 블로그 화면' : '블로그 화면'}>
-        <div className="blog-document">
-          <button className="blog-back" type="button" onClick={handleClose} aria-label="그만보기">
-            <img src="/blog-assets/close-button.svg" alt="" />
-          </button>
+        <button className="blog-back" type="button" onClick={handleClose}>
+          그만보기
+        </button>
 
+        <div className="blog-document">
           <header className="blog-titlebar">
             <h1>jiihyunlog님의 델로그</h1>
             <nav aria-label="블로그 메뉴">
