@@ -14,7 +14,6 @@ import RoomPage from "./pages/Room/RoomPage";
 import Tutorial from "./pages/Home/Tutorial";
 import SuspectSelect from "./pages/SuspectSelect/SuspectSelect";
 import Review from "./pages/Ending/Review";
-
 function App() {
   return (
     <BrowserRouter>
@@ -27,6 +26,8 @@ function App() {
         <Route path="/ranking" element={<Ranking />} />
         <Route path="/ending" element={<Ending />} />
         <Route path="/room" element={<RoomPage />} />
+        <Route path="/note" element={<NotePage />} />
+        <Route path="/evidence" element={<EvidencePage />} />
         <Route path="/blog" element={<BlogPage variant="normal" />} />
         <Route path="/blog/:postId" element={<BlogPage variant="normal" />} />
         <Route path="/blog-corrupt" element={<BlogPage variant="corrupt" />} />
