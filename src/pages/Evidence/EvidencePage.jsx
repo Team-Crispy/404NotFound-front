@@ -1,5 +1,7 @@
 import { Link } from 'react-router-dom';
 
+import evidenceImage from '../../assets/evidence.svg';
+
 function EvidencePage() {
   return (
     <main className="inspection-screen">
@@ -9,7 +11,7 @@ function EvidencePage() {
       </Link>
 
       <section className="evidence-viewer" aria-label="evidence viewer">
-        <img className="evidence-image" src="/images/evidence.png" alt="evidence" />
+        <img className="evidence-image" src={evidenceImage} alt="evidence" />
       </section>
     </main>
   );
