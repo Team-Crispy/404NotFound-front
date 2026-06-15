@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 import bg from "../../assets/Ranking_Background.png";
 import backBtn from "../../assets/back_Button.svg";
 import RankingCard from "../../components/common/RankingCard";
@@ -69,6 +70,18 @@ const RANKINGS = [
 
 function Ranking() {
   const navigate = useNavigate();
+  const [rankings, setRankings] = useState([]);
+
+  useEffect(() => {
+    const review = localStorage.getItem("review");
+
+    setRankings(
+      RANKINGS.map((item) => ({
+        ...item,
+        desc: review,
+      })),
+    );
+  }, []);
   return (
     <div
       className="ranking-page"
@@ -88,9 +101,9 @@ function Ranking() {
         className="back-button"
       />
       <ul className="ranking-card-area">
-        {RANKINGS.map((item) => (
+        {rankings.map((item, index) => (
           <li key={item.rank}>
-            <RankingCard rank={item.rank} name={item.name} time={item.time} desc={item.desc} />
+            <RankingCard rank={index + 1} time={item.time} desc={item.desc} />{" "}
           </li>
         ))}
       </ul>

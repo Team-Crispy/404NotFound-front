@@ -13,6 +13,7 @@ import Ranking from "./pages/Ranking/Ranking";
 import RoomPage from "./pages/Room/RoomPage";
 import Tutorial from "./pages/Home/Tutorial";
 import SuspectSelect from "./pages/SuspectSelect/SuspectSelect";
+import Review from "./pages/Ending/Review";
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
         <Route path="/blog-corrupt/:postId" element={<BlogPage variant="corrupt" />} />
         <Route path="*" element={<Navigate to="/" replace />} />
         <Route path="/SuspectSelect" element={<SuspectSelect />} />
+        <Route path="/Review" element={<Review />} />
       </Routes>
       <GameOverOverlay />
     </BrowserRouter>

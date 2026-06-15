@@ -21,3 +21,24 @@
   filter: drop-shadow(1px 2px 5px rgb(138, 4, 4));
   z-index: 8;
 }
+.arrest-btn {
+  position: absolute;
+  bottom: 159px;
+  right: 380px;
+  z-index: 5;
+  cursor: pointer;
+  width: 150px;
+  transition: transform 0.2s ease;
+}
+
+.arrest-btn:hover {
+  transform: scale(1.01);
+}
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+
+.suspect-card.blink {
+  animation: blink 0.6s ease-in-out infinite;
+}
