@@ -1,4 +1,8 @@
+import { useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 import bg from "../../assets/SuspectSelect_bg.png";
+import bg2 from "../../assets/SuspectSelect_re_bg.png";
 import card1 from "../../assets/jang.svg";
 import card2 from "../../assets/kangj.svg";
 import card3 from "../../assets/hany.svg";
@@ -6,12 +10,24 @@ import tape1 from "../../assets/tape1.png";
 import tape2 from "../../assets/tape2.png";
 import tape3 from "../../assets/tape3.png";
 import tape4 from "../../assets/tape4.png";
+import arrest from "../../assets/arrest.svg";
+import card1Re from "../../assets/jang_re.svg";
+import card2False from "../../assets/kangj_f.svg";
+import card2Re from "../../assets/kangj_re.svg";
+import card3False from "../../assets/hany_f.svg";
+import card3Re from "../../assets/hany_re.svg";
+
 import "../../styles/SuspectSelect.css";
+
+const CORRECT_ANSWER = "장민후";
+const ENDING_DELAY_MS = 900;
 
 const SUSPECTS = [
   {
     name: "장민후",
     card: card1,
+    cardRe: card1Re,
+    cardFalse: null,
     top: "230px",
     left: "28%",
     rotate: 0,
@@ -20,6 +36,8 @@ const SUSPECTS = [
   {
     name: "강재후",
     card: card2,
+    cardRe: card2Re,
+    cardFalse: card2False,
     top: "40%",
     left: "42%",
     rotate: 8,
@@ -31,6 +49,8 @@ const SUSPECTS = [
   {
     name: "한유영",
     card: card3,
+    cardRe: card3Re,
+    cardFalse: card3False,
     top: "30%",
     left: "58%",
     rotate: 0,
@@ -39,13 +59,69 @@ const SUSPECTS = [
 ];
 
 function SuspectSelect({ onSelect }) {
+  const navigate = useNavigate();
+  const endingTimerRef = useRef(null);
+  const [selectedSuspect, setSelectedSuspect] = useState(null);
+  const [arrested, setArrested] = useState(false);
+  const [bgChanged, setBgChanged] = useState(false);
+  const [wrongOnce, setWrongOnce] = useState(false);
+
+  useEffect(() => {
+    return () => {
+      if (endingTimerRef.current) {
+        window.clearTimeout(endingTimerRef.current);
+      }
+    };
+  }, []);
+
+  const handleArrest = () => {
+    if (!selectedSuspect) {
+      return;
+    }
+
+    setArrested(true);
+    setBgChanged(true);
+    onSelect?.(selectedSuspect);
+
+    if (selectedSuspect === CORRECT_ANSWER) {
+      endingTimerRef.current = window.setTimeout(() => {
+        navigate("/ending");
+      }, ENDING_DELAY_MS);
+      return;
+    }
+
+    setWrongOnce(true);
+  };
+
+  const getCardImage = (suspect) => {
+    if (!arrested && !wrongOnce) {
+      return suspect.card;
+    }
+
+    if (!arrested && wrongOnce) {
+      if (suspect.name === selectedSuspect) {
+        return suspect.card;
+      }
+      if (suspect.name === CORRECT_ANSWER) {
+        return suspect.cardRe;
+      }
+      return suspect.cardFalse ?? suspect.card;
+    }
+
+    if (suspect.name === selectedSuspect) {
+      return selectedSuspect === CORRECT_ANSWER ? suspect.cardRe : suspect.cardFalse ?? suspect.card;
+    }
+
+    return suspect.cardRe;
+  };
+
+  const retryArrest = () => {
+    setArrested(false);
+    setSelectedSuspect(null);
+  };
+
   return (
-    <div
-      className="SuspectSelect"
-      style={{
-        backgroundImage: `url(${bg})`,
-      }}
-    >
+    <div className="SuspectSelect" style={{ backgroundImage: `url(${bgChanged ? bg2 : bg})` }}>
       {SUSPECTS.map((suspect) => (
         <div key={suspect.name}>
           {suspect.tapes?.map((tape, idx) => (
@@ -57,27 +133,50 @@ function SuspectSelect({ onSelect }) {
                 position: "absolute",
                 top: tape.top,
                 left: tape.left,
-                transform: `rotate(${tape.rotate}deg)`,
+                transform: `rotate(${tape.rotate ?? 0}deg)`,
                 zIndex: 2,
               }}
             />
           ))}
 
           <img
-            src={suspect.card}
+            src={getCardImage(suspect)}
             alt={suspect.name}
-            className="suspect-card"
-            onClick={() => onSelect?.(suspect.name)}
+            className={[
+              "suspect-card",
+              selectedSuspect === suspect.name && !arrested ? "selected" : "",
+              arrested && suspect.name === selectedSuspect && selectedSuspect === CORRECT_ANSWER ? "blink" : "",
+            ]
+              .filter(Boolean)
+              .join(" ")}
+            onClick={() => {
+              if (!arrested) {
+                setSelectedSuspect(suspect.name);
+              }
+            }}
             style={{
               position: "absolute",
               top: suspect.top,
               left: suspect.left,
               transform: `rotate(${suspect.rotate}deg)`,
               zIndex: 1,
+              cursor: arrested ? "default" : "pointer",
             }}
           />
         </div>
       ))}
+
+      {selectedSuspect && !arrested && (
+        <button type="button" className="arrest-btn" onClick={handleArrest} aria-label="검거">
+          <img src={arrest} alt="" />
+        </button>
+      )}
+
+      {arrested && selectedSuspect !== CORRECT_ANSWER && (
+        <button type="button" className="arrest-btn" onClick={retryArrest} aria-label="재검거">
+          <img src={arrest} alt="" />
+        </button>
+      )}
     </div>
   );
 }

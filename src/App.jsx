@@ -3,6 +3,7 @@ import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import GameOverOverlay from "./components/game/GameOverOverlay";
 import BlogPage from "./pages/Blog/BlogPage";
 import Ending from "./pages/Ending/Ending";
+import Review from "./pages/Ending/Review";
 import EvidencePage from "./pages/Evidence/EvidencePage";
 import Home from "./pages/Home/Home";
 import Login from "./pages/Home/Login";
@@ -22,8 +23,6 @@ function App() {
         <Route path="/Tutorial" element={<Tutorial />} />
         <Route path="/lobby" element={<Lobby />} />
         <Route path="/game/:themeId" element={<Navigate to="/room" replace />} />
-        <Route path="/ranking" element={<Ranking />} />
-        <Route path="/ending" element={<Ending />} />
         <Route path="/room" element={<RoomPage />} />
         <Route path="/note" element={<NotePage />} />
         <Route path="/evidence" element={<EvidencePage />} />
@@ -31,8 +30,11 @@ function App() {
         <Route path="/blog/:postId" element={<BlogPage variant="normal" />} />
         <Route path="/blog-corrupt" element={<BlogPage variant="corrupt" />} />
         <Route path="/blog-corrupt/:postId" element={<BlogPage variant="corrupt" />} />
-        <Route path="*" element={<Navigate to="/" replace />} />
         <Route path="/SuspectSelect" element={<SuspectSelect />} />
+        <Route path="/ending" element={<Ending />} />
+        <Route path="/Review" element={<Review />} />
+        <Route path="/ranking" element={<Ranking />} />
+        <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
       <GameOverOverlay />
     </BrowserRouter>

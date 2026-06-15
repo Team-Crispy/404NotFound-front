@@ -20,6 +20,7 @@ function Login() {
 
     const handleNextPage = () => {
         if (nickname.trim()) {
+            localStorage.setItem('nickname', nickname.trim());
             resetTimer();
             navigate('/room');
 

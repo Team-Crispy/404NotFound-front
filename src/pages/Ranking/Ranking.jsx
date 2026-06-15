@@ -1,7 +1,9 @@
+import { useMemo } from "react";
 import { useNavigate } from "react-router-dom";
-import bg from "../../assets/Ranking_Background.png";
-import backBtn from "../../assets/back_Button.svg";
+
 import RankingCard from "../../components/common/RankingCard";
+import backBtn from "../../assets/back_Button.svg";
+import bg from "../../assets/Ranking_Background.png";
 import "../../styles/Ranking.css";
 
 const RANKINGS = [
@@ -69,6 +71,28 @@ const RANKINGS = [
 
 function Ranking() {
   const navigate = useNavigate();
+  const rankings = useMemo(() => {
+    const review = localStorage.getItem("review")?.trim();
+    const nickname = localStorage.getItem("nickname")?.trim() || "플레이어";
+
+    if (!review) {
+      return RANKINGS;
+    }
+
+    return [
+      {
+        rank: 1,
+        name: nickname,
+        time: "CLEAR",
+        desc: review,
+      },
+      ...RANKINGS.map((item, index) => ({
+        ...item,
+        rank: index + 2,
+      })),
+    ];
+  }, []);
+
   return (
     <div
       className="ranking-page"
@@ -88,8 +112,8 @@ function Ranking() {
         className="back-button"
       />
       <ul className="ranking-card-area">
-        {RANKINGS.map((item) => (
-          <li key={item.rank}>
+        {rankings.map((item) => (
+          <li key={`${item.rank}-${item.name}`}>
             <RankingCard rank={item.rank} name={item.name} time={item.time} desc={item.desc} />
           </li>
         ))}

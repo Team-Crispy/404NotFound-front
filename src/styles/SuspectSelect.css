@@ -1,5 +1,4 @@
 .SuspectSelect {
-    
   position: relative;
   width: 100vw;
   height: 100vh;
@@ -13,11 +12,55 @@
   width: 240px;
   cursor: pointer;
   filter: drop-shadow(1px 2px 5px rgba(0, 0, 0, 0.6));
-  transition: transform 0.2s, filter 0.2s;
+  transition: filter 0.2s ease, opacity 0.2s ease;
   z-index: 1;
 }
 
-.suspect-card:hover {
-  filter: drop-shadow(1px 2px 5px rgb(138, 4, 4));
+.suspect-card:hover,
+.suspect-card.selected {
+  filter:
+    drop-shadow(1px 2px 5px rgb(138, 4, 4))
+    drop-shadow(0 0 14px rgba(184, 0, 0, 0.52));
   z-index: 8;
+}
+
+.arrest-btn {
+  position: absolute;
+  right: 19.8%;
+  bottom: 14.7%;
+  z-index: 10;
+  width: 150px;
+  border: 0;
+  padding: 0;
+  background: transparent;
+  cursor: pointer;
+  transition: transform 0.2s ease, filter 0.2s ease;
+}
+
+.arrest-btn img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.arrest-btn:hover,
+.arrest-btn:focus-visible {
+  outline: 0;
+  filter: drop-shadow(0 0 12px rgba(184, 0, 0, 0.55));
+  transform: scale(1.03);
+}
+
+@keyframes blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0;
+  }
+}
+
+.suspect-card.blink {
+  animation: blink 0.6s ease-in-out infinite;
 }

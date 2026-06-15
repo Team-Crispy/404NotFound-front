@@ -20,9 +20,9 @@ function RoomPage() {
         <button className="room-control hint-control" type="button" aria-label="hint">
           <img src="/room-assets/hint-button.png" alt="" />
         </button>
-        <button className="room-control arrest-control" type="button" aria-label="arrest">
+        <Link className="room-control arrest-control" to="/SuspectSelect" aria-label="arrest">
           <img src="/room-assets/arrest-button.png" alt="" />
-        </button>
+        </Link>
 
         <Link className="room-object evidence-object" to="/evidence" aria-label="view evidence">
           <img src="/room-assets/evidence.png" alt="" />
