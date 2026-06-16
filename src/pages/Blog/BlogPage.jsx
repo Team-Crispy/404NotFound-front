@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import { Link, Navigate, useNavigate, useParams } from 'react-router-dom';
 
 import laptopLockScreen from '../../assets/노트북잠금화면.svg';
@@ -7,17 +7,27 @@ import Timer from '../../components/game/Timer';
 const posts = [
   {
     id: 1,
-    title: '[일상] 처음으로 혼자 서해 여행하기~',
+    title: '[일상] 눈 감았다 뜨니 새해야',
     corruptTitle: '[4상] 처?으로 ??????하기~',
     date: '2026.05.12',
     image: 'post1',
+    detailImages: ['/blog-assets/blog1-body.png'],
+    detailImageSlots: [2],
     excerpt:
       '갑자기 바다가 보고 싶어서 혼자 서해 다녀왔다 ~_~ 생각보다 안 추워서 바다 보면서 한참 멍 때리고 왔음,, 파도 소리 듣고 있으니까 괜히 기분 차분해지고 좋더라',
     body: [
-      '갑자기 바다가 보고 싶어서 혼자 서해 다녀왔다 ~_~',
-      '생각보다 안 추워서 바다 보면서 한참 멍 때리고 왔음,, 파도 소리 듣고 있으니까 괜히 기분 차분해지고 좋더라 ( ´ ▽ ` )',
-      '근처 카페 들어가서 따뜻한 라떼 마시고 사진도 엄청 찍었는데 혼자 여행은 뭔가 색다른 느낌이었다. 사실 처음에는 혼자 가는 게 조금 어색했는데, 막상 가보니까 신경 쓰이는 사람도 없고 마음 편했다.',
-      '다음에는 하루 더 길게 가보고 싶다는 생각도 들었음!',
+      '내가 벌써 고삼이라는 게 진짜 1도 안 믿긴다 ( º﹏º｡ )',
+      '그래도 올해는 진짜 정신 차리고 열심히 공부해서 꼭 원하는 대학 가야지 !!',
+      '라고 거창하게 결심해놓고',
+      '역시 새해 첫날엔 떡국 야무지게 먹고 푸데데 자는게 국룰이지..',
+      '하루 종일 이불 속에서 굴러다니는 중 ㅋㅋㅋ 원래 고3은 체력 보충 해야돼',
+      '그나저나 이틀 뒤에 민후오빠 만나기로 했는데 뭐 입고 나가지... ㅎㅎ??',
+      '날씨 추운데 옷장에 입을 옷이 왜 이렇게 없는지 모르겠다 ᐡ⸝⸝⸝⸝ᐡ💦',
+      '생각해 보니까 우리가 벌써 일년 넘게 사귀었다는게 신기해',
+      '그동안 투닥거리기도 많이 했지만 앞으로도 오래오래 예쁘게 잘 사귀고 싶어 ( ♡‧̫♡ )',
+      '내 로망은 오빠랑 같은 대학 가서 CC도 하고 수능 끝나면 같이 해외여행도 가는건데 //',
+      '내 로망 다 이룰 수 있게 올해 딱 집중해서 열공해야지.',
+      '고삼 파이팅 🔥',
     ],
     corruptBody: [
       '갑자기 바다가 보고 싶어서 혼자 서해 다녀왔다 --',
@@ -27,16 +37,23 @@ const posts = [
   },
   {
     id: 2,
-    title: '[일상] 즉흥적인 버스 여행',
+    title: '[일상] 봄 날씨가 너무 좋아서 그래',
     corruptTitle: '[???] #즉???이렇게; &!비?',
     date: '2026.05.11',
     image: 'post2',
+    detailImages: ['/blog-assets/blog2-body-1.png', '/blog-assets/blog2-body-2.png'],
+    detailImageSlots: [1, 4],
+    imageCaption: '구름이 쿼카랑 강아지처럼 보이길래 .. ﾍ(=￣∇￣)ﾉ',
     excerpt:
       '일찍 일어나서 혼자 여행 갔다. 갑자기 바다 보고 싶다는 생각 들어서 충동적으로 동네 버스까지 예약해버렸다는 이야기.',
     body: [
-      '일찍 일어나서 혼자 여행 갔다 ( ´ ▽ ` )',
-      '갑자기 바다 보고 싶다는 생각이 들어서 충동적으로 동네 버스까지 예약해버렸다. 이제서야 진짜 가는구나 싶었음.',
-      '혼자 멀리 가는 건 거의 처음이라 조금 떨리기도 했는데 이상하게 긴장보다 기대가 더 컸다. 가서 바다 보고, 면도 사고, 맛있는 것도 먹고, 사진도 많이 찍고 올 예정!',
+      '학교 끝나고 집 가려고 하는데 날이 너무 좋아서 산책 좀 했어 ଘ(੭ˊ꒳ˋ)੭✧ !!',
+      '남친이나 친구 없이 혼자 산책 하는건 올만이라 어색했지만 바람도 선선하고 좋아하는 노래 들으면서 걸으니까 나름 이것도 좋더라 .. (˘ᵕ˘)',
+      '고삼은 낭만 챙길 시기 아니라고는 하지만 아직 새학기니까 괜찮겠지 (っ •̀ ̫•́ )︎‪‪っ',
+      '오늘까지만 놀고 내일부터는 열심히 공부 해야지 !!',
+      '그리고 오늘 오빠가 고삼 고생한다구 카페 깊티도 보내줬는데 이런 남친 또 없다 진짜⸝⸝› ‹⸝⸝',
+      '친구들이랑 같이 가라고 했는데 나중에 오빠랑 가야지 !!',
+      '나중엔 내가 오빠한테 이런 도움이 되고싶어(∩˃ω˂∩)',
     ],
     corruptBody: [
       '예약 내역은 정상인데 도착지가 조금 이상하다. 지도에 없는 정류장 이름이 자꾸 뜨고, 취소 버튼은 눌리지 않는다.',
@@ -45,41 +62,36 @@ const posts = [
   },
   {
     id: 3,
-    title: '[독서] 해바라기가 피지 않는 밤',
+    title: '[일상] 시험공부 파이팅 해야지',
     corruptTitle: '[독서] 해바라기가 피지 않는 ....',
     date: '2026.05.08',
     image: 'post1',
+    listImage: '/blog-assets/blog3-body.png',
+    detailImages: ['/blog-assets/blog3-body.png'],
+    detailImageSlots: [7],
     excerpt:
-      '요즘 자기 전에 조금씩 읽는 책. 제목은 예쁜데 읽을수록 묘하게 서늘해서 자꾸 다음 장을 넘기게 된다.',
+      '시험기간 시작... 진짜 공부해야지 해야지 하는데 왜 책만 펴면 갑자기 졸린건지. 그래도 이번엔 후회 안 남게 준비해야지.',
     body: [
-      '요즘 자기 전에 조금씩 읽는 책. 제목은 예쁜데 읽을수록 묘하게 서늘해서 자꾸 다음 장을 넘기게 된다.',
-      '평범한 일상 기록처럼 시작하다가 중간부터 문장들이 삐걱거리는 구성이 좋았다. 마지막까지 다 읽으면 짧게 감상문도 남겨야지.',
+      '시험기간 시작...',
+      '진짜 공부해야지 해야지 하는데 왜 책만 펴면 갑자기 졸린건지( ⚆ ⚆)',
+      '분명 책상에 앉은 건 맞는데 정신 차려보면 핸드폰 보고 있어서 민후 오빠랑 카공하려고 만났는데 결국 떠들기만 했네(꜆꜄ `ㆆ⩊ㆆ)꜆꜄꜆',
+      '그래도 담날에 만났을 땐 진짜 열심히 한 것 같아서 뿌듯했다',
+      '그리고 모르는 문제는 민후 오빠가 설명 해주면서 풀어줘서 이해가 쏙쏙 된 듯',
+      '진짜 울 오빠 밖에 없다(⌯˃̶᷄ ﹏ ˂̶᷄⌯)ﾟ',
+      '중간중간 간식도 먹으면서 "우리 진짜 열심히 하고 있다" 하고 응원도 해줬어 !!',
+      '공부는 힘들지만 끝나고 나면 뿌듯하겠지??',
+      '오빠가 시험 결과보다는 준비하는 과정이 중요한거라고 했는데 아직은 잘 모르겠어.. ( º﹏º｡ )',
+      '어디에서 후회 안남게 열심히 준비해서 좋은 결과를 만들어내야지 !!',
+      '다들 시험 파이팅!!',
     ],
     corruptBody: [
       '요즘 자기 전에 조금씩 읽는 책. 그런데 책갈피가 매일 같은 페이지로 돌아간다.',
       '밑줄 친 검은 문장들이 연결되어 이름을 만들고, 마지막 문장은 아직 쓰이지 않았다.',
     ],
   },
-  {
-    id: 4,
-    title: '[자격증] ITQ 파워포인트 자격증 준비',
-    corruptTitle: '[자격증] ITQ 파워포인트????....',
-    date: '2026.05.05',
-    image: 'post2',
-    excerpt:
-      '미뤄뒀던 자격증 공부를 다시 시작했다. 처음엔 단축키가 헷갈렸는데 몇 번 반복하니까 손에 익는 중.',
-    body: [
-      '미뤄뒀던 자격증 공부를 다시 시작했다.',
-      '처음엔 단축키가 헷갈렸는데 몇 번 반복하니까 손에 익는 중. 이번 주는 샘플 문제 위주로 연습할 생각!',
-    ],
-    corruptBody: [
-      '미뤄뒀던 자격증 공부를 다시 시작했다. 저장한 파일 이름이 전부 404로 바뀌었다.',
-      '열어보면 슬라이드마다 같은 얼굴이 아주 작게 들어가 있다.',
-    ],
-  },
 ];
 
-const categories = ['전체보기 (27)', '자기개발 (3)', '나의 취미 베이킹 (6)', '여행을 떠나요 (18)'];
+const categories = ['전체보기 (3)', '일상 (3)'];
 
 function BlogSidebar({ isCorrupt }) {
   return (
@@ -144,7 +156,7 @@ function BlogList({ isCorrupt }) {
           <article className="blog-post">
             <img
               className="post-image"
-              src={`/blog-assets/${post.image}-${isCorrupt ? 'corrupt' : 'normal'}.jpg`}
+              src={!isCorrupt && post.listImage ? post.listImage : `/blog-assets/${post.image}-${isCorrupt ? 'corrupt' : 'normal'}.jpg`}
               alt=""
             />
             <div className="post-content">
@@ -167,6 +179,20 @@ function BlogDetail({ isCorrupt }) {
     return <Navigate to={isCorrupt ? '/blog-corrupt' : '/blog'} replace />;
   }
 
+  const body = isCorrupt ? post.corruptBody : post.body;
+  const hasInlineImages = !isCorrupt && post.detailImages?.length;
+  const fallbackImage = `/blog-assets/${post.image}-${isCorrupt ? 'corrupt' : 'normal'}.jpg`;
+  const imageSlots = post.detailImageSlots ?? [];
+
+  const renderMedia = (images, caption) => (
+    <figure className="detail-media" key={images.join('|')}>
+      {images.map((image) => (
+        <img className="detail-image" src={image} alt="" key={image} />
+      ))}
+      {caption ? <figcaption>{caption}</figcaption> : null}
+    </figure>
+  );
+
   return (
     <article className="blog-detail">
       <Link className="detail-back" to={isCorrupt ? '/blog-corrupt' : '/blog'}>
@@ -179,15 +205,20 @@ function BlogDetail({ isCorrupt }) {
 
       <div className="detail-divider" />
 
-      <img
-        className="detail-image"
-        src={`/blog-assets/${post.image}-${isCorrupt ? 'corrupt' : 'normal'}.jpg`}
-        alt=""
-      />
+      {!hasInlineImages ? renderMedia([fallbackImage]) : null}
 
       <div className="detail-body">
-        {(isCorrupt ? post.corruptBody : post.body).map((paragraph) => (
-          <p key={paragraph}>{paragraph}</p>
+        {body.map((paragraph, index) => (
+          <Fragment key={paragraph}>
+            <p key={paragraph}>{paragraph}</p>
+            {hasInlineImages
+              ? post.detailImages.map((image, imageIndex) =>
+                  imageSlots[imageIndex] === index + 1
+                    ? renderMedia([image], imageIndex === 0 ? post.imageCaption : null)
+                    : null,
+                )
+              : null}
+          </Fragment>
         ))}
       </div>
     </article>
