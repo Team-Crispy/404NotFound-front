@@ -5,6 +5,7 @@ import BlogPage from "./pages/Blog/BlogPage";
 import Ending from "./pages/Ending/Ending";
 import Review from "./pages/Ending/Review";
 import EvidencePage from "./pages/Evidence/EvidencePage";
+import HintDetailPage from "./pages/Hint/HintDetailPage";
 import Home from "./pages/Home/Home";
 import Login from "./pages/Home/Login";
 import Lobby from "./pages/Lobby/Lobby";
@@ -24,6 +25,7 @@ function App() {
         <Route path="/lobby" element={<Lobby />} />
         <Route path="/game/:themeId" element={<Navigate to="/room" replace />} />
         <Route path="/room" element={<RoomPage />} />
+        <Route path="/hint/:hintId" element={<HintDetailPage />} />
         <Route path="/note" element={<NotePage />} />
         <Route path="/evidence" element={<EvidencePage />} />
         <Route path="/blog" element={<BlogPage variant="normal" />} />

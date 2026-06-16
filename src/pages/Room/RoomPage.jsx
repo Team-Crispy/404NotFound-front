@@ -1,18 +1,9 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
-import hintCard1 from '../../assets/힌트1.svg';
-import hintCard2 from '../../assets/힌트2번.svg';
-import hintCard3 from '../../assets/힌트3.svg';
-import hintSelectPanel from '../../assets/힌트선택화면.svg';
 import Timer from '../../components/game/Timer';
+import { hints, hintSelectPanelImage } from '../../constants/hints';
 import { useTimer } from '../../hooks/useTimer';
-
-const hints = [
-  { id: 1, label: '노트북 비밀번호', image: hintCard1 },
-  { id: 2, label: '결정적인 글', image: hintCard2 },
-  { id: 3, label: '노트북 비밀번호', image: hintCard3 },
-];
 
 function RoomPage() {
   const { startTimer } = useTimer();
@@ -51,13 +42,32 @@ function RoomPage() {
               힌트닫기
             </button>
             <section className="hint-panel">
-              <img className="hint-panel-bg" src={hintSelectPanel} alt="" />
+              <img className="hint-panel-bg" src={hintSelectPanelImage} alt="" />
               <div className="hint-card-list">
-                {hints.map((hint) => (
-                  <button className="hint-card-button" type="button" key={hint.id} aria-label={hint.label}>
-                    <img src={hint.image} alt="" />
-                  </button>
-                ))}
+                {hints.map((hint) => {
+                  const hintCard = <img src={hint.image} alt="" />;
+
+                  return hint.detailImage ? (
+                    <Link
+                      className="hint-card-button"
+                      to={`/hint/${hint.id}`}
+                      key={hint.id}
+                      aria-label={`${hint.label} 힌트 상세보기`}
+                    >
+                      {hintCard}
+                    </Link>
+                  ) : (
+                    <button
+                      className="hint-card-button"
+                      type="button"
+                      key={hint.id}
+                      aria-label={`${hint.label} 힌트`}
+                      disabled
+                    >
+                      {hintCard}
+                    </button>
+                  );
+                })}
               </div>
             </section>
           </div>
