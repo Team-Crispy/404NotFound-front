@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link, Navigate, useNavigate, useParams } from 'react-router-dom';
 
+import laptopLockScreen from '../../assets/노트북잠금화면.svg';
 import Timer from '../../components/game/Timer';
 
 const posts = [
@@ -199,6 +200,9 @@ function BlogPage({ variant }) {
   const navigate = useNavigate();
   const [hasOpened, setHasOpened] = useState(false);
   const [isClosing, setIsClosing] = useState(false);
+  const [isUnlocked, setIsUnlocked] = useState(false);
+  const [password, setPassword] = useState('');
+  const [passwordError, setPasswordError] = useState(false);
 
   useEffect(() => {
     const frameId = window.requestAnimationFrame(() => {
@@ -217,30 +221,75 @@ function BlogPage({ variant }) {
     }, 520);
   };
 
+  const handleUnlock = (event) => {
+    event.preventDefault();
+
+    if (password === '1234') {
+      setIsUnlocked(true);
+      setPasswordError(false);
+      return;
+    }
+
+    setPassword('');
+    setPasswordError(true);
+  };
+
   return (
     <main className={isCorrupt ? 'blog-page corrupt' : 'blog-page'}>
       <img className="blog-room-bg" src="/room-assets/background.png" alt="" />
       <Timer className="blog-background-timer" />
-      <section className={`blog-laptop ${hasOpened ? 'opening' : ''} ${isClosing ? 'closing' : ''}`} aria-label={isCorrupt ? '깨진 블로그 화면' : '블로그 화면'}>
-        <div className="blog-document">
-          <button className="blog-back" type="button" onClick={handleClose} aria-label="그만보기">
-            <img src="/blog-assets/close-button.svg" alt="" />
-          </button>
+      <section className={`blog-laptop ${!isUnlocked ? 'locked' : ''} ${hasOpened ? 'opening' : ''} ${isClosing ? 'closing' : ''}`} aria-label={isCorrupt ? '깨진 블로그 화면' : '블로그 화면'}>
+        <button className="blog-back" type="button" onClick={handleClose} aria-label="그만보기">
+          <img src="/blog-assets/close-button.svg" alt="" />
+        </button>
 
-          <header className="blog-titlebar">
-            <h1>jiihyunlog님의 델로그</h1>
-            <nav aria-label="블로그 메뉴">
-              <span>델로그</span>
-              <b />
-              <span>메일 보내기</span>
-            </nav>
-          </header>
+        {isUnlocked ? (
+          <div className="blog-document">
+            <header className="blog-titlebar">
+              <h1>jiihyunlog님의 델로그</h1>
+              <nav aria-label="블로그 메뉴">
+                <span>델로그</span>
+                <b />
+                <span>메일 보내기</span>
+              </nav>
+            </header>
 
-          <div className="blog-grid">
-            <BlogSidebar isCorrupt={isCorrupt} />
-            {postId ? <BlogDetail isCorrupt={isCorrupt} /> : <BlogList isCorrupt={isCorrupt} />}
+            <div className="blog-grid">
+              <BlogSidebar isCorrupt={isCorrupt} />
+              {postId ? <BlogDetail isCorrupt={isCorrupt} /> : <BlogList isCorrupt={isCorrupt} />}
+            </div>
           </div>
-        </div>
+        ) : (
+          <div className="blog-lock-screen">
+            <img className="blog-lock-image" src={laptopLockScreen} alt="" />
+            <form className="blog-lock-form" onSubmit={handleUnlock}>
+              <label className="blog-lock-label" htmlFor="laptop-password">
+                비밀번호
+              </label>
+              <input
+                id="laptop-password"
+                className={passwordError ? 'is-error' : ''}
+                type="password"
+                inputMode="numeric"
+                autoComplete="off"
+                autoFocus
+                placeholder="비밀번호를 입력하세요"
+                value={password}
+                onChange={(event) => {
+                  setPassword(event.target.value);
+                  setPasswordError(false);
+                }}
+                aria-invalid={passwordError}
+                aria-describedby={passwordError ? 'laptop-password-error' : undefined}
+              />
+              {passwordError ? (
+                <p id="laptop-password-error" className="blog-lock-error">
+                  비밀번호가 틀렸습니다
+                </p>
+              ) : null}
+            </form>
+          </div>
+        )}
       </section>
     </main>
   );
