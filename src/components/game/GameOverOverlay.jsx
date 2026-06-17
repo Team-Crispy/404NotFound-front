@@ -1,8 +1,16 @@
+import { useNavigate } from 'react-router-dom';
+
 import { useTimer } from '../../hooks/useTimer';
 import gameOverFullScreen from '../../assets/게임오버전체화면.svg';
 
 function GameOverOverlay() {
-  const { isStarted, isTimeOver, resetTimer } = useTimer();
+  const navigate = useNavigate();
+  const { isStarted, isTimeOver, stopTimer } = useTimer();
+
+  const handleRetry = () => {
+    stopTimer();
+    navigate('/', { replace: true });
+  };
 
   if (!isStarted || !isTimeOver) {
     return null;
@@ -15,7 +23,7 @@ function GameOverOverlay() {
         <h2 id="game-over-title" className="game-over-title">
           게임오버
         </h2>
-        <button type="button" className="game-over-retry" onClick={resetTimer} aria-label="다시하기" />
+        <button type="button" className="game-over-retry" onClick={handleRetry} aria-label="다시하기" />
       </div>
     </section>
   );
