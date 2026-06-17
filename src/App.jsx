@@ -1,4 +1,4 @@
-import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+import { HashRouter, Navigate, Route, Routes } from "react-router-dom";
 
 import GameOverOverlay from "./components/game/GameOverOverlay";
 import BlogPage from "./pages/Blog/BlogPage";
@@ -18,7 +18,7 @@ import SuspectSelect from "./pages/SuspectSelect/SuspectSelect";
 
 function App() {
   return (
-    <BrowserRouter>
+    <HashRouter>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/Login" element={<Login />} />
@@ -41,7 +41,7 @@ function App() {
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
       <GameOverOverlay />
-    </BrowserRouter>
+    </HashRouter>
   );
 }
 
