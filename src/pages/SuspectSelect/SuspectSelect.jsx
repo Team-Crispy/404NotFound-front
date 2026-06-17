@@ -1,6 +1,7 @@
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+import CutsceneVideo from "../../components/game/CutsceneVideo";
 import { useTimer } from "../../hooks/useTimer";
 import { gameApi, getCurrentThemeId } from "../../services/api";
 import bg from "../../assets/SuspectSelect_bg.png";
@@ -18,11 +19,11 @@ import card2False from "../../assets/kangj_f.svg";
 import card2Re from "../../assets/kangj_re.svg";
 import card3False from "../../assets/hany_f.svg";
 import card3Re from "../../assets/hany_re.svg";
+import endingVideo from "../../assets/엔딩.mp4";
 
 import "../../styles/SuspectSelect.css";
 
 const CORRECT_ANSWER = "장민후";
-const ENDING_DELAY_MS = 900;
 
 const SUSPECTS = [
   {
@@ -63,19 +64,11 @@ const SUSPECTS = [
 function SuspectSelect({ onSelect }) {
   const navigate = useNavigate();
   const { remainingSeconds, stopTimer } = useTimer();
-  const endingTimerRef = useRef(null);
   const [selectedSuspect, setSelectedSuspect] = useState(null);
   const [arrested, setArrested] = useState(false);
   const [bgChanged, setBgChanged] = useState(false);
   const [wrongOnce, setWrongOnce] = useState(false);
-
-  useEffect(() => {
-    return () => {
-      if (endingTimerRef.current) {
-        window.clearTimeout(endingTimerRef.current);
-      }
-    };
-  }, []);
+  const [showEndingVideo, setShowEndingVideo] = useState(false);
 
   const handleArrest = async () => {
     if (!selectedSuspect) {
@@ -114,9 +107,7 @@ function SuspectSelect({ onSelect }) {
         }),
       );
       stopTimer();
-      endingTimerRef.current = window.setTimeout(() => {
-        navigate("/ending");
-      }, ENDING_DELAY_MS);
+      setShowEndingVideo(true);
       return;
     }
 
@@ -149,6 +140,10 @@ function SuspectSelect({ onSelect }) {
     setArrested(false);
     setSelectedSuspect(null);
   };
+
+  if (showEndingVideo) {
+    return <CutsceneVideo src={endingVideo} onEnded={() => navigate("/ending", { replace: true })} />;
+  }
 
   return (
     <div className="SuspectSelect" style={{ backgroundImage: `url(${bgChanged ? bg2 : bg})` }}>

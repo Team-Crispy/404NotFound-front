@@ -18,6 +18,45 @@ body {
   background: #1f1f1f;
 }
 
+.cutscene-screen {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  background: #000000;
+}
+
+.cutscene-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  background: #000000;
+}
+
+.cutscene-play {
+  position: absolute;
+  left: 50%;
+  bottom: clamp(28px, 7vh, 72px);
+  min-width: 132px;
+  min-height: 48px;
+  border: 2px solid rgba(255, 255, 255, 0.62);
+  border-radius: 6px;
+  color: #ffffff;
+  background: rgba(0, 0, 0, 0.72);
+  font-weight: 900;
+  cursor: pointer;
+  transform: translateX(-50%);
+}
+
+.cutscene-play:hover,
+.cutscene-play:focus-visible {
+  outline: 3px solid rgba(255, 255, 255, 0.32);
+  outline-offset: 3px;
+  background: rgba(24, 24, 24, 0.86);
+}
+
 button,
 input {
   font: inherit;

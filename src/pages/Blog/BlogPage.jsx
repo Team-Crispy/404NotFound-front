@@ -2,22 +2,65 @@ import { Fragment, useEffect, useState } from 'react';
 import { Link, Navigate, useNavigate, useParams } from 'react-router-dom';
 
 import Timer from '../../components/game/Timer';
+import laptopLockScreen from '../../assets/노트북잠금화면.svg';
 
 const posts = [
   {
     id: 1,
-    title: '[일상] 여행 다녀온 날',
+    title: '[공지] 당분간 블로그 및 SNS 활동을 쉬어갑니다. (공부 집중)',
+    corruptTitle: '[공지] 로그아웃',
+    date: '2026.05.12',
+    image: 'post2',
+    excerpt: '오늘 올린 서해 여행 글을 마지막으로, 당분간 블로그와 인스타그램을 포함한 모든 SNS를 쉬어갑니다.',
+    body: [
+      '여러분, 방금 서해 여행을 마치고 돌아오는 길에 진지하게 고민을 좀 했습니다.',
+      '그동안 매일 블로그를 올리며 소통하는 것도 즐거웠지만, 정작 가장 중요한 공부를 너무 미뤄두고 있었다는 생각이 들었습니다.',
+      '이번에 혼자 바다를 보며 생각을 정리해보니, 지금은 다른 것보다 학업에 완전히 집중해야 할 시기라는 결론을 내렸습니다.',
+      '따라서 오늘 올린 서해 여행 글을 마지막으로, 당분간 블로그와 인스타그램을 포함한 모든 SNS를 로그아웃하고 공부에만 매진하려고 합니다.',
+      '스마트폰도 공부에 방해가 되니 아예 멀리 치워두거나 당분간 정지시켜 둘 생각입니다. 독하게 마음을 먹었습니다.',
+      '이웃분들, 제가 없는 동안 다들 잘 지내고 계시길 바랍니다.',
+      '시험이 끝나거나 목표한 바를 이룬 후에, 훨씬 더 성장한 모습으로 돌아오겠습니다.',
+      '그때까지 모두 건강하게 잘 지내세요.',
+      '감사합니다.',
+    ],
+    corruptBody: [
+      '로그아웃 이후의 기록이 비어 있다.',
+      '마지막 글이라는 말만 반복된다.',
+    ],
+    comments: [
+      {
+        author: 'minhoo0401',
+        text: '잘 생각했어. 당분간 연락 안 해도 괜찮아.',
+        time: '2026.05.12',
+      },
+      {
+        author: 'gangjae000',
+        text: '갑자기? 방금까지 여행 글 올렸잖아. 무슨 일 있어?',
+        time: '2026.05.12',
+      },
+    ],
+  },
+  {
+    id: 2,
+    title: '[일상] 갑자기 바다가 보고 싶어서 혼자 서해에 다녀왔다.',
     corruptTitle: '[404] 깨진 기록',
     date: '2026.05.12',
     image: 'post1',
     detailImages: ['/blog-assets/blog1-body.png'],
-    detailImageSlots: [2],
-    excerpt: '갑자기 바다가 보고 싶어서 다녀왔다. 생각보다 추웠지만 기분은 좋았다.',
+    detailImageSlots: [6],
+    excerpt: '갑자기 바다가 보고 싶어서 혼자 서해 바다에 다녀왔다. 혼자 하는 여행도 은근히 매력 있는 듯하다.',
     body: [
-      '벌써 고3이라는 게 믿기지 않는다.',
-      '그래도 올해는 꼭 하고 싶은 일을 하나씩 해보기로 했다.',
-      '바다는 생각보다 추웠고, 사진은 전부 마음에 들었다.',
-      '다음에는 친구들이랑 같이 가고 싶다.',
+      '어제 블로그에 썼던 대로, 오늘 드디어 혼자 서해 바다에 다녀왔다.',
+      '오랜만에 혼자 밖으로 나오니까 머리가 비는 느낌도 들고 여러모로 괜찮았던 것 같다.',
+      '(참고로 부모님께는 따로 말씀 안 드리고 온 비밀 일탈 여행이다.)',
+      '바람은 생각보다 안 추웠다. 그래서 바다를 보면서 한참 동안 멍하게 서 있었다.',
+      '파도 소리를 가만히 듣고 있으니까 기분이 차분해지는 효과가 있는 것 같다.',
+      '근처에 보이는 카페에 들어가서 라떼도 마셨다. 삼각대를 챙겨간 덕분에 혼자서도 사진을 많이 찍을 수 있었다. 혼자 하는 여행도 은근히 매력 있는 듯하다.',
+      '사실 출발하기 전에는 혼자 가는 게 조금 어색하게 느껴졌는데, 막상 도착해보니 타인의 시선을 신경 쓸 필요가 없어서 오히려 편했다.',
+      '바다 앞에서 이어폰을 끼고 좋아하는 노래를 들으며 걸을 때는 마치 드라마 주인공이 된 것 같은 기분도 들었다.',
+      '저녁 시간이 되니까 노을이 정말 예쁘게 졌는데, 카메라에 그 풍경이 다 담기지 않아서 아쉬운 마음이 든다.',
+      '아무튼 혼자서 알차게 잘 놀다 온 하루였다.',
+      '다음에는 시간을 더 길게 내서 와보고 싶다.',
     ],
     corruptBody: [
       '페이지가 이상하게 반복된다.',
@@ -42,7 +85,7 @@ const posts = [
     ],
   },
   {
-    id: 2,
+    id: 3,
     title: '[일상] 봄 날씨가 좋다',
     corruptTitle: '[???] 예약 내역 오류',
     date: '2026.05.11',
@@ -66,7 +109,7 @@ const posts = [
     ],
   },
   {
-    id: 3,
+    id: 4,
     title: '[일상] 시험 공부 이야기',
     corruptTitle: '[입력] 마지막 문장',
     date: '2026.05.08',
@@ -92,7 +135,7 @@ const posts = [
   },
 ];
 
-const categories = ['전체보기 (3)', '일상 (3)'];
+const categories = ['전체보기 (4)', '공지 (1)', '일상 (3)'];
 
 function BlogSidebar({ isCorrupt }) {
   return (
@@ -172,13 +215,7 @@ function BlogList({ isCorrupt }) {
   );
 }
 
-function BlogComments({ initialComments, postId }) {
-  const [comments, setComments] = useState(initialComments);
-
-  useEffect(() => {
-    setComments(initialComments);
-  }, [initialComments, postId]);
-
+function BlogComments({ initialComments }) {
   return (
     <section className="blog-comments" aria-label="comments">
       <div className="comment-disabled-box">
@@ -189,7 +226,7 @@ function BlogComments({ initialComments, postId }) {
       </div>
 
       <div className="comment-list">
-        {comments.map((comment, index) => (
+        {initialComments.map((comment, index) => (
           <article className="comment-item" key={`${comment.author}-${comment.time}-${index}`}>
             <img className="comment-avatar" src="/blog-assets/profile-normal.jpg" alt="" />
             <div className="comment-body">
@@ -254,7 +291,7 @@ function BlogDetail({ isCorrupt }) {
         ))}
       </div>
 
-      {!isCorrupt ? <BlogComments initialComments={post.comments ?? []} postId={post.id} /> : null}
+      {!isCorrupt ? <BlogComments initialComments={post.comments ?? []} /> : null}
     </article>
   );
 }
@@ -329,7 +366,7 @@ function BlogPage({ variant }) {
           </div>
         ) : (
           <div className="blog-lock-screen">
-            <div className="blog-lock-image" aria-hidden="true" />
+            <img className="blog-lock-image" src={laptopLockScreen} alt="" />
             <form className="blog-lock-form" onSubmit={handleUnlock}>
               <label className="blog-lock-label" htmlFor="laptop-password">
                 비밀번호

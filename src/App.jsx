@@ -8,6 +8,7 @@ import EvidencePage from "./pages/Evidence/EvidencePage";
 import HintDetailPage from "./pages/Hint/HintDetailPage";
 import Home from "./pages/Home/Home";
 import Login from "./pages/Home/Login";
+import Opening from "./pages/Home/Opening";
 import Lobby from "./pages/Lobby/Lobby";
 import NotePage from "./pages/Note/NotePage";
 import Ranking from "./pages/Ranking/Ranking";
@@ -21,6 +22,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/Login" element={<Login />} />
+        <Route path="/opening" element={<Opening />} />
         <Route path="/Tutorial" element={<Tutorial />} />
         <Route path="/lobby" element={<Lobby />} />
         <Route path="/game/:themeId" element={<Navigate to="/room" replace />} />
