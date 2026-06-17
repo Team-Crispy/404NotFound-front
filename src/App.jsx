@@ -1,6 +1,7 @@
 import { HashRouter, Navigate, Route, Routes } from "react-router-dom";
 
 import GameOverOverlay from "./components/game/GameOverOverlay";
+import RefreshGuard from "./components/game/RefreshGuard";
 import BlogPage from "./pages/Blog/BlogPage";
 import Ending from "./pages/Ending/Ending";
 import Review from "./pages/Ending/Review";
@@ -40,6 +41,7 @@ function App() {
         <Route path="/ranking" element={<Ranking />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
+      <RefreshGuard />
       <GameOverOverlay />
     </HashRouter>
   );
