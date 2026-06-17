@@ -5,6 +5,14 @@ function CutsceneVideo({ src, onEnded, className = "" }) {
   const [needsPlay, setNeedsPlay] = useState(false);
 
   useEffect(() => {
+    window.dispatchEvent(new Event("cutscene:start"));
+
+    return () => {
+      window.dispatchEvent(new Event("cutscene:end"));
+    };
+  }, []);
+
+  useEffect(() => {
     const video = videoRef.current;
 
     if (!video) {
@@ -29,6 +37,11 @@ function CutsceneVideo({ src, onEnded, className = "" }) {
     }
   };
 
+  const handleEnded = () => {
+    window.dispatchEvent(new Event("cutscene:end"));
+    onEnded?.();
+  };
+
   return (
     <section className={["cutscene-screen", className].filter(Boolean).join(" ")} aria-label="cutscene">
       <video
@@ -38,8 +51,8 @@ function CutsceneVideo({ src, onEnded, className = "" }) {
         autoPlay
         playsInline
         preload="auto"
-        onEnded={onEnded}
-        onError={onEnded}
+        onEnded={handleEnded}
+        onError={handleEnded}
       />
 
       {needsPlay ? (

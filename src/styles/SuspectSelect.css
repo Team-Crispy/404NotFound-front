@@ -61,8 +61,12 @@
 .arrest-btn:hover,
 .arrest-btn:focus-visible {
   outline: 0;
-  filter: drop-shadow(0 0 12px rgba(184, 0, 0, 0.55));
-  transform: scale(1.03);
+  filter:
+    brightness(1.12)
+    contrast(1.08)
+    drop-shadow(0 0 12px rgba(184, 0, 0, 0.7))
+    drop-shadow(0 0 24px rgba(184, 0, 0, 0.38));
+  transform: translateY(-2px) scale(1.04);
 }
 
 @keyframes blink {

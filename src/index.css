@@ -236,6 +236,24 @@ a {
   outline: 0;
 }
 
+.hint-control:hover img,
+.hint-control:focus-visible img,
+.arrest-control:hover img,
+.arrest-control:focus-visible img {
+  filter:
+    brightness(1.16)
+    contrast(1.06)
+    drop-shadow(0 0 8px rgba(255, 238, 96, 0.72))
+    drop-shadow(0 0 18px rgba(255, 238, 96, 0.34));
+  transform: translateY(-2px) scale(1.035);
+}
+
+.hint-control:focus-visible,
+.arrest-control:focus-visible {
+  outline: 3px solid rgba(255, 238, 96, 0.58);
+  outline-offset: 4px;
+}
+
 .note-object:hover img,
 .note-object:focus-visible img,
 .laptop-object:hover img,
@@ -654,8 +672,8 @@ a {
 .blog-back {
   position: absolute;
   z-index: 60;
-  top: clamp(10px, 1vw, 16px);
-  right: clamp(10px, 1vw, 16px);
+  top: 7.2%;
+  right: 6.9%;
   width: clamp(34px, 3.4vw, 43px);
   height: clamp(34px, 3.4vw, 43px);
   padding: 0;
