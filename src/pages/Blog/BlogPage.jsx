@@ -1,92 +1,93 @@
 import { Fragment, useEffect, useState } from 'react';
 import { Link, Navigate, useNavigate, useParams } from 'react-router-dom';
 
-import laptopLockScreen from '../../assets/노트북잠금화면.svg';
 import Timer from '../../components/game/Timer';
 
 const posts = [
   {
     id: 1,
-    title: '[일상] 눈 감았다 뜨니 새해야',
-    corruptTitle: '[4상] 처?으로 ??????하기~',
+    title: '[일상] 여행 다녀온 날',
+    corruptTitle: '[404] 깨진 기록',
     date: '2026.05.12',
     image: 'post1',
     detailImages: ['/blog-assets/blog1-body.png'],
     detailImageSlots: [2],
-    excerpt:
-      '갑자기 바다가 보고 싶어서 혼자 서해 다녀왔다 ~_~ 생각보다 안 추워서 바다 보면서 한참 멍 때리고 왔음,, 파도 소리 듣고 있으니까 괜히 기분 차분해지고 좋더라',
+    excerpt: '갑자기 바다가 보고 싶어서 다녀왔다. 생각보다 추웠지만 기분은 좋았다.',
     body: [
-      '내가 벌써 고삼이라는 게 진짜 1도 안 믿긴다 ( º﹏º｡ )',
-      '그래도 올해는 진짜 정신 차리고 열심히 공부해서 꼭 원하는 대학 가야지 !!',
-      '라고 거창하게 결심해놓고',
-      '역시 새해 첫날엔 떡국 야무지게 먹고 푸데데 자는게 국룰이지..',
-      '하루 종일 이불 속에서 굴러다니는 중 ㅋㅋㅋ 원래 고3은 체력 보충 해야돼',
-      '그나저나 이틀 뒤에 민후오빠 만나기로 했는데 뭐 입고 나가지... ㅎㅎ??',
-      '날씨 추운데 옷장에 입을 옷이 왜 이렇게 없는지 모르겠다 ᐡ⸝⸝⸝⸝ᐡ💦',
-      '생각해 보니까 우리가 벌써 일년 넘게 사귀었다는게 신기해',
-      '그동안 투닥거리기도 많이 했지만 앞으로도 오래오래 예쁘게 잘 사귀고 싶어 ( ♡‧̫♡ )',
-      '내 로망은 오빠랑 같은 대학 가서 CC도 하고 수능 끝나면 같이 해외여행도 가는건데 //',
-      '내 로망 다 이룰 수 있게 올해 딱 집중해서 열공해야지.',
-      '고삼 파이팅 🔥',
+      '벌써 고3이라는 게 믿기지 않는다.',
+      '그래도 올해는 꼭 하고 싶은 일을 하나씩 해보기로 했다.',
+      '바다는 생각보다 추웠고, 사진은 전부 마음에 들었다.',
+      '다음에는 친구들이랑 같이 가고 싶다.',
     ],
     corruptBody: [
-      '갑자기 바다가 보고 싶어서 혼자 서해 다녀왔다 --',
-      '생각보다 ??추웠고 바다를 보는데 같은 장면이 계속 반복됐다. 파도 소리는 분명 들리는데 어딘가 끊겨 있었다.',
-      '사진첩에는 찍은 기억 없는 컷이 하나씩 섞여 있었다. 검은 문, 계단, 열린 손잡이. 처음에는 오류라고 생각했는데 스크롤할수록 같은 사진이 반복된다.',
+      '페이지가 이상하게 반복된다.',
+      '사진 속 계단과 문장이 계속 연결되는 것처럼 보인다.',
+    ],
+    comments: [
+      {
+        author: 'gangjae000',
+        text: '대충글씨대충글씨대충글씨대충글씨대충글씨대충글씨대충글씨대충글씨대충글씨대충글씨',
+        time: '2026.06.17',
+      },
+      {
+        author: 'gangjae000',
+        text: '대충글씨대충글씨대충글씨대충글씨대충글씨대충글씨대충글씨두줄형식두줄형식두줄형식두줄형식두줄형식',
+        time: '2026.06.17',
+      },
+      {
+        author: 'minhoo0401',
+        text: '대충글씨대충글씨대충글씨대충글씨대충글씨대충글씨대충글씨대충글씨대충글씨대충글씨',
+        time: '2026.06.17',
+      },
     ],
   },
   {
     id: 2,
-    title: '[일상] 봄 날씨가 너무 좋아서 그래',
-    corruptTitle: '[???] #즉???이렇게; &!비?',
+    title: '[일상] 봄 날씨가 좋다',
+    corruptTitle: '[???] 예약 내역 오류',
     date: '2026.05.11',
     image: 'post2',
     detailImages: ['/blog-assets/blog2-body-1.png', '/blog-assets/blog2-body-2.png'],
-    detailImageSlots: [1, 4],
-    imageCaption: '구름이 쿼카랑 강아지처럼 보이길래 .. ﾍ(=￣∇￣)ﾉ',
-    excerpt:
-      '일찍 일어나서 혼자 여행 갔다. 갑자기 바다 보고 싶다는 생각 들어서 충동적으로 동네 버스까지 예약해버렸다는 이야기.',
+    detailImageSlots: [1, 3],
+    excerpt: '날씨가 좋아서 오래 걸었다. 카페에서 받은 쿠키도 맛있었다.',
     body: [
-      '학교 끝나고 집 가려고 하는데 날이 너무 좋아서 산책 좀 했어 ଘ(੭ˊ꒳ˋ)੭✧ !!',
-      '남친이나 친구 없이 혼자 산책 하는건 올만이라 어색했지만 바람도 선선하고 좋아하는 노래 들으면서 걸으니까 나름 이것도 좋더라 .. (˘ᵕ˘)',
-      '고삼은 낭만 챙길 시기 아니라고는 하지만 아직 새학기니까 괜찮겠지 (っ •̀ ̫•́ )︎‪‪っ',
-      '오늘까지만 놀고 내일부터는 열심히 공부 해야지 !!',
-      '그리고 오늘 오빠가 고삼 고생한다구 카페 깊티도 보내줬는데 이런 남친 또 없다 진짜⸝⸝› ‹⸝⸝',
-      '친구들이랑 같이 가라고 했는데 나중에 오빠랑 가야지 !!',
-      '나중엔 내가 오빠한테 이런 도움이 되고싶어(∩˃ω˂∩)',
+      '오늘은 날씨가 너무 좋아서 산책을 했다.',
+      '친구가 보내준 쿠폰으로 음료도 마셨다.',
+      '해야 할 일은 많지만 잠깐 쉬는 것도 필요하다.',
+      '내일은 다시 공부를 해야겠다.',
     ],
     corruptBody: [
-      '예약 내역은 정상인데 도착지가 조금 이상하다. 지도에 없는 정류장 이름이 자꾸 뜨고, 취소 버튼은 눌리지 않는다.',
-      '그래도 가야 하는 것 같다. 내가 계속 기다린다고 말했는지, 지도가 나를 기다리는지 모르겠다.',
+      '예약 내역은 정상인데 위치가 조금 이상하다.',
+      '기다린다는 말이 계속 같은 자리에서 반복된다.',
+    ],
+    comments: [
+      { author: 'minhoo0401', text: '사진 잘 봤어. 다음에는 같이 가자.', time: '2026.05.11' },
+      { author: 'gangjae000', text: '날씨 진짜 좋았겠다.', time: '2026.05.11' },
     ],
   },
   {
     id: 3,
-    title: '[일상] 시험공부 파이팅 해야지',
-    corruptTitle: '[독서] 해바라기가 피지 않는 ....',
+    title: '[일상] 시험 공부 이야기',
+    corruptTitle: '[입력] 마지막 문장',
     date: '2026.05.08',
     image: 'post1',
     listImage: '/blog-assets/blog3-body.png',
     detailImages: ['/blog-assets/blog3-body.png'],
-    detailImageSlots: [7],
-    excerpt:
-      '시험기간 시작... 진짜 공부해야지 해야지 하는데 왜 책만 펴면 갑자기 졸린건지. 그래도 이번엔 후회 안 남게 준비해야지.',
+    detailImageSlots: [2],
+    excerpt: '시험 기간이 시작됐다. 준비하는 과정도 결과만큼 중요하다고 믿고 싶다.',
     body: [
-      '시험기간 시작...',
-      '진짜 공부해야지 해야지 하는데 왜 책만 펴면 갑자기 졸린건지( ⚆ ⚆)',
-      '분명 책상에 앉은 건 맞는데 정신 차려보면 핸드폰 보고 있어서 민후 오빠랑 카공하려고 만났는데 결국 떠들기만 했네(꜆꜄ `ㆆ⩊ㆆ)꜆꜄꜆',
-      '그래도 담날에 만났을 땐 진짜 열심히 한 것 같아서 뿌듯했다',
-      '그리고 모르는 문제는 민후 오빠가 설명 해주면서 풀어줘서 이해가 쏙쏙 된 듯',
-      '진짜 울 오빠 밖에 없다(⌯˃̶᷄ ﹏ ˂̶᷄⌯)ﾟ',
-      '중간중간 간식도 먹으면서 "우리 진짜 열심히 하고 있다" 하고 응원도 해줬어 !!',
-      '공부는 힘들지만 끝나고 나면 뿌듯하겠지??',
-      '오빠가 시험 결과보다는 준비하는 과정이 중요한거라고 했는데 아직은 잘 모르겠어.. ( º﹏º｡ )',
-      '어디에서 후회 안남게 열심히 준비해서 좋은 결과를 만들어내야지 !!',
-      '다들 시험 파이팅!!',
+      '시험 기간이 시작됐다.',
+      '책만 펴면 졸리지만 그래도 해야 한다.',
+      '중간중간 간식을 먹으면서 버티는 중이다.',
+      '끝나고 나면 제대로 쉬어야겠다.',
     ],
     corruptBody: [
-      '요즘 자기 전에 조금씩 읽는 책. 그런데 책갈피가 매일 같은 페이지로 돌아간다.',
-      '밑줄 친 검은 문장들이 연결되어 이름을 만들고, 마지막 문장은 아직 쓰이지 않았다.',
+      '문장들이 연결되어 이름을 만든다.',
+      '마지막 문장은 아직 저장되지 않았다.',
+    ],
+    comments: [
+      { author: 'gangjae000', text: '끝까지 힘내.', time: '2026.05.08' },
+      { author: 'minhoo0401', text: '결과보다 과정이 중요할 때도 있어.', time: '2026.05.09' },
     ],
   },
 ];
@@ -99,18 +100,18 @@ function BlogSidebar({ isCorrupt }) {
       <img
         className="profile-image"
         src={`/blog-assets/profile-${isCorrupt ? 'corrupt' : 'normal'}.jpg`}
-        alt="jiihyunlog 프로필"
+        alt="jiihyunlog profile"
       />
       <h2>jiihyunlog &lt;3</h2>
       <p className="profile-counts">
         게시물 · 27개
         <br />
-        팔로워 · 39명
+        이웃 · 39명
       </p>
-      <p className="profile-copy">안녕하세요 박지현의 델로그에 오신것을 환영합니다 ~ 소통해요(❁´▽`❁)</p>
+      <p className="profile-copy">안녕하세요. 지현이의 블로그입니다.</p>
       <div className="profile-actions">
-        <button type="button">{isCorrupt ? '???' : '+ 팔로우'}</button>
-        <button type="button">{isCorrupt ? '?차단' : '× 차단'}</button>
+        <button type="button">{isCorrupt ? '???' : '+ 이웃'}</button>
+        <button type="button">{isCorrupt ? '차단' : '차단'}</button>
       </div>
 
       <section className="blog-categories">
@@ -120,7 +121,7 @@ function BlogSidebar({ isCorrupt }) {
         ))}
       </section>
 
-      <section className="recent-images" aria-label="최근 이미지">
+      <section className="recent-images" aria-label="recent images">
         <h3>최근 이미지</h3>
         <div>
           <img src="/blog-assets/post1-normal.jpg" alt="" />
@@ -141,14 +142,14 @@ function BlogList({ isCorrupt }) {
   };
 
   return (
-    <section className="blog-feed" aria-label="블로그 글 목록">
+    <section className="blog-feed" aria-label="blog posts">
       <form className="blog-search" onSubmit={handleSearch}>
-        <input placeholder={isCorrupt ? '9생활 ?]??블???&??' : '검색할 글을 입력하세요'} aria-label="블로그 검색" />
-        <button type="submit" aria-label="검색" />
+        <input placeholder={isCorrupt ? '검색 결과가 깨졌습니다.' : '검색할 글을 입력하세요'} aria-label="blog search" />
+        <button type="submit" aria-label="search" />
       </form>
 
-      <section className="blog-ad" aria-label="광고">
-        <img src={`/blog-assets/ad-${isCorrupt ? 'corrupt' : 'normal'}.jpg`} alt="광고 배너" />
+      <section className="blog-ad" aria-label="ad">
+        <img src={`/blog-assets/ad-${isCorrupt ? 'corrupt' : 'normal'}.jpg`} alt="ad banner" />
       </section>
 
       {posts.map((post) => (
@@ -171,6 +172,40 @@ function BlogList({ isCorrupt }) {
   );
 }
 
+function BlogComments({ initialComments, postId }) {
+  const [comments, setComments] = useState(initialComments);
+
+  useEffect(() => {
+    setComments(initialComments);
+  }, [initialComments, postId]);
+
+  return (
+    <section className="blog-comments" aria-label="comments">
+      <div className="comment-disabled-box">
+        <textarea value="" placeholder="댓글을 입력할 수 없습니다." readOnly aria-label="댓글을 입력할 수 없습니다." />
+        <button type="button" aria-label="댓글 작성">
+          <span aria-hidden="true">✎</span>
+        </button>
+      </div>
+
+      <div className="comment-list">
+        {comments.map((comment, index) => (
+          <article className="comment-item" key={`${comment.author}-${comment.time}-${index}`}>
+            <img className="comment-avatar" src="/blog-assets/profile-normal.jpg" alt="" />
+            <div className="comment-body">
+              <div className="comment-meta">
+                <strong>{comment.author}</strong>
+                <time>{comment.time}</time>
+              </div>
+              <p>{comment.text}</p>
+            </div>
+          </article>
+        ))}
+      </div>
+    </section>
+  );
+}
+
 function BlogDetail({ isCorrupt }) {
   const { postId } = useParams();
   const post = posts.find((item) => item.id === Number(postId));
@@ -184,19 +219,18 @@ function BlogDetail({ isCorrupt }) {
   const fallbackImage = `/blog-assets/${post.image}-${isCorrupt ? 'corrupt' : 'normal'}.jpg`;
   const imageSlots = post.detailImageSlots ?? [];
 
-  const renderMedia = (images, caption) => (
+  const renderMedia = (images) => (
     <figure className="detail-media" key={images.join('|')}>
       {images.map((image) => (
         <img className="detail-image" src={image} alt="" key={image} />
       ))}
-      {caption ? <figcaption>{caption}</figcaption> : null}
     </figure>
   );
 
   return (
     <article className="blog-detail">
       <Link className="detail-back" to={isCorrupt ? '/blog-corrupt' : '/blog'}>
-        &lt; 나가기
+        &lt; 돌아가기
       </Link>
       <header className="detail-header">
         <h2>{isCorrupt ? post.corruptTitle : post.title}</h2>
@@ -210,17 +244,17 @@ function BlogDetail({ isCorrupt }) {
       <div className="detail-body">
         {body.map((paragraph, index) => (
           <Fragment key={paragraph}>
-            <p key={paragraph}>{paragraph}</p>
+            <p>{paragraph}</p>
             {hasInlineImages
               ? post.detailImages.map((image, imageIndex) =>
-                  imageSlots[imageIndex] === index + 1
-                    ? renderMedia([image], imageIndex === 0 ? post.imageCaption : null)
-                    : null,
+                  imageSlots[imageIndex] === index + 1 ? renderMedia([image]) : null,
                 )
               : null}
           </Fragment>
         ))}
       </div>
+
+      {!isCorrupt ? <BlogComments initialComments={post.comments ?? []} postId={post.id} /> : null}
     </article>
   );
 }
@@ -269,17 +303,20 @@ function BlogPage({ variant }) {
     <main className={isCorrupt ? 'blog-page corrupt' : 'blog-page'}>
       <img className="blog-room-bg" src="/room-assets/background.png" alt="" />
       <Timer className="blog-background-timer" />
-      <section className={`blog-laptop ${!isUnlocked ? 'locked' : ''} ${hasOpened ? 'opening' : ''} ${isClosing ? 'closing' : ''}`} aria-label={isCorrupt ? '깨진 블로그 화면' : '블로그 화면'}>
-        <button className="blog-back" type="button" onClick={handleClose} aria-label="그만보기">
+      <section
+        className={`blog-laptop ${!isUnlocked ? 'locked' : ''} ${hasOpened ? 'opening' : ''} ${isClosing ? 'closing' : ''}`}
+        aria-label={isCorrupt ? 'corrupt blog screen' : 'blog screen'}
+      >
+        <button className="blog-back" type="button" onClick={handleClose} aria-label="close blog">
           <img src="/blog-assets/close-button.svg" alt="" />
         </button>
 
         {isUnlocked ? (
           <div className="blog-document">
             <header className="blog-titlebar">
-              <h1>jiihyunlog님의 델로그</h1>
-              <nav aria-label="블로그 메뉴">
-                <span>델로그</span>
+              <h1>jiihyunlog의 블로그</h1>
+              <nav aria-label="blog menu">
+                <span>블로그</span>
                 <b />
                 <span>메일 보내기</span>
               </nav>
@@ -292,7 +329,7 @@ function BlogPage({ variant }) {
           </div>
         ) : (
           <div className="blog-lock-screen">
-            <img className="blog-lock-image" src={laptopLockScreen} alt="" />
+            <div className="blog-lock-image" aria-hidden="true" />
             <form className="blog-lock-form" onSubmit={handleUnlock}>
               <label className="blog-lock-label" htmlFor="laptop-password">
                 비밀번호
@@ -304,7 +341,7 @@ function BlogPage({ variant }) {
                 inputMode="numeric"
                 autoComplete="off"
                 autoFocus
-                placeholder="비밀번호를 입력하세요"
+                placeholder="비밀번호"
                 value={password}
                 onChange={(event) => {
                   setPassword(event.target.value);
@@ -315,7 +352,7 @@ function BlogPage({ variant }) {
               />
               {passwordError ? (
                 <p id="laptop-password-error" className="blog-lock-error">
-                  비밀번호가 틀렸습니다
+                  비밀번호가 맞지 않습니다
                 </p>
               ) : null}
             </form>

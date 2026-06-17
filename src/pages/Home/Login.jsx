@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 
 import OkBtn from '../../assets/Ok.svg';
 import { useTimer } from '../../hooks/useTimer';
+import { setCurrentThemeId, themesApi } from '../../services/api';
 import '../../styles/Login.css';
 
 function Login() {
@@ -18,9 +19,29 @@ function Login() {
         setNickname(e.target.value);
     };
 
-    const handleNextPage = () => {
+    const handleNextPage = async () => {
         if (nickname.trim()) {
             localStorage.setItem('nickname', nickname.trim());
+            localStorage.removeItem('review');
+            localStorage.removeItem('reviewSubmittedAt');
+            localStorage.removeItem('lastGameResult');
+            localStorage.removeItem('lastRank');
+            localStorage.removeItem('usedHints');
+            localStorage.setItem('hintCount', '0');
+            localStorage.setItem('gameProgress', '0');
+
+            try {
+                const themes = await themesApi.list();
+                const firstPlayableTheme = themes.find((theme) => !theme.is_locked) || themes[0];
+
+                if (firstPlayableTheme?.id) {
+                    setCurrentThemeId(firstPlayableTheme.id);
+                }
+            } catch (error) {
+                console.warn('Failed to load themes. Falling back to theme 1.', error);
+                setCurrentThemeId(1);
+            }
+
             resetTimer();
             navigate('/room');
 

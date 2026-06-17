@@ -4,6 +4,7 @@ import { Link, Navigate, useParams } from 'react-router-dom';
 import Timer from '../../components/game/Timer';
 import { getHintById } from '../../constants/hints';
 import { useTimer } from '../../hooks/useTimer';
+import { gameApi, getCurrentThemeId } from '../../services/api';
 
 function HintDetailPage() {
   const { hintId } = useParams();
@@ -13,6 +14,28 @@ function HintDetailPage() {
   useEffect(() => {
     startTimer();
   }, [startTimer]);
+
+  useEffect(() => {
+    if (!hint?.id) {
+      return;
+    }
+
+    const usedHints = JSON.parse(localStorage.getItem('usedHints') || '[]');
+    const nextUsedHints = usedHints.includes(hint.id) ? usedHints : [...usedHints, hint.id];
+
+    localStorage.setItem('usedHints', JSON.stringify(nextUsedHints));
+    localStorage.setItem('hintCount', String(nextUsedHints.length));
+
+    gameApi
+      .getHint({
+        themeId: getCurrentThemeId(),
+        sequence: Number(hint.id) - 1,
+        progress: Number(localStorage.getItem('gameProgress')) || 0,
+      })
+      .catch((error) => {
+        console.warn('Failed to load hint from API. Using local hint asset.', error);
+      });
+  }, [hint?.id]);
 
   if (!hint?.detailImage) {
     return <Navigate to="/room" replace />;

@@ -688,6 +688,9 @@ a {
   display: block;
   width: 100%;
   height: 100%;
+  background:
+    radial-gradient(circle at 50% 38%, rgba(255, 255, 255, 0.12), transparent 30%),
+    linear-gradient(180deg, #171717 0%, #0d0d0d 100%);
   object-fit: cover;
   user-select: none;
   -webkit-user-drag: none;
@@ -1116,6 +1119,115 @@ a {
   margin: 0 0 18px;
 }
 
+.blog-comments {
+  width: min(720px, 100%);
+  margin: 44px auto 0;
+  padding-top: 18px;
+  border-top: 1px solid #bcbcbc;
+  color: #111111;
+}
+
+.comment-disabled-box {
+  position: relative;
+  margin-bottom: 40px;
+}
+
+.comment-disabled-box textarea {
+  display: block;
+  width: 100%;
+  min-height: 88px;
+  resize: none;
+  border: 2px solid #9c9c9c;
+  border-radius: 6px;
+  padding: 12px 54px 12px 14px;
+  color: #777777;
+  background: #ffffff;
+  font: inherit;
+  font-size: 0.92rem;
+  line-height: 1.45;
+  outline: none;
+}
+
+.comment-disabled-box textarea::placeholder {
+  color: #a8a8a8;
+  opacity: 1;
+}
+
+.comment-disabled-box button {
+  position: absolute;
+  top: 8px;
+  right: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border: 0;
+  border-radius: 4px;
+  color: #ffffff;
+  background: #6f8d5f;
+  font-size: 1.2rem;
+  font-weight: 800;
+  line-height: 1;
+  cursor: default;
+}
+
+.comment-list {
+  display: grid;
+  gap: 8px;
+}
+
+.comment-item {
+  display: grid;
+  grid-template-columns: 58px minmax(0, 1fr);
+  gap: 12px;
+  min-height: 80px;
+  padding: 10px 12px;
+  border: 2px solid #6f8d5f;
+  border-radius: 6px;
+  background: #ffffff;
+}
+
+.comment-avatar {
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  object-fit: cover;
+  background: #d9d9d9;
+}
+
+.comment-body {
+  min-width: 0;
+  padding-top: 2px;
+}
+
+.comment-meta {
+  display: grid;
+  gap: 1px;
+  margin-bottom: 5px;
+}
+
+.comment-item strong {
+  font-size: 0.82rem;
+  font-weight: 900;
+  line-height: 1.1;
+}
+
+.comment-item time {
+  color: #8a8a8a;
+  font-size: 0.72rem;
+  line-height: 1.1;
+}
+
+.comment-item p {
+  margin: 0;
+  overflow-wrap: anywhere;
+  color: #111111;
+  font-size: 0.88rem;
+  font-weight: 700;
+  line-height: 1.45;
+}
+
 .corrupt .blog-detail {
   border-color: #111111;
   background: #fffafa;
@@ -1242,5 +1354,23 @@ a {
 
   .detail-body {
     text-align: left;
+  }
+
+  .blog-comments {
+    width: 100%;
+  }
+
+  .comment-disabled-box {
+    margin-bottom: 22px;
+  }
+
+  .comment-item {
+    grid-template-columns: 48px minmax(0, 1fr);
+    padding: 9px 10px;
+  }
+
+  .comment-avatar {
+    width: 48px;
+    height: 48px;
   }
 }

@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+import { useTimer } from "../../hooks/useTimer";
+import { gameApi, getCurrentThemeId } from "../../services/api";
 import bg from "../../assets/SuspectSelect_bg.png";
 import bg2 from "../../assets/SuspectSelect_re_bg.png";
 import card1 from "../../assets/jang.svg";
@@ -60,6 +62,7 @@ const SUSPECTS = [
 
 function SuspectSelect({ onSelect }) {
   const navigate = useNavigate();
+  const { remainingSeconds, stopTimer } = useTimer();
   const endingTimerRef = useRef(null);
   const [selectedSuspect, setSelectedSuspect] = useState(null);
   const [arrested, setArrested] = useState(false);
@@ -74,7 +77,7 @@ function SuspectSelect({ onSelect }) {
     };
   }, []);
 
-  const handleArrest = () => {
+  const handleArrest = async () => {
     if (!selectedSuspect) {
       return;
     }
@@ -83,7 +86,34 @@ function SuspectSelect({ onSelect }) {
     setBgChanged(true);
     onSelect?.(selectedSuspect);
 
-    if (selectedSuspect === CORRECT_ANSWER) {
+    let isCorrect = selectedSuspect === CORRECT_ANSWER;
+
+    try {
+      const verification = await gameApi.verifyAnswer({
+        themeId: getCurrentThemeId(),
+        sequence: 0,
+        answer: selectedSuspect,
+      });
+
+      isCorrect = Boolean(verification.isCorrect);
+
+      if (verification.progress_after !== null && verification.progress_after !== undefined) {
+        localStorage.setItem("gameProgress", String(verification.progress_after));
+      }
+    } catch (error) {
+      console.warn("Failed to verify answer from API. Using local answer check.", error);
+    }
+
+    if (isCorrect) {
+      localStorage.setItem(
+        "lastGameResult",
+        JSON.stringify({
+          clearTime: remainingSeconds,
+          endingType: "normal",
+          solvedAt: new Date().toISOString(),
+        }),
+      );
+      stopTimer();
       endingTimerRef.current = window.setTimeout(() => {
         navigate("/ending");
       }, ENDING_DELAY_MS);

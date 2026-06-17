@@ -1,20 +1,72 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+import { getCurrentThemeId, guestbookApi, ranksApi } from "../../services/api";
+
 function Review() {
   const [desc, setDesc] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const navigate = useNavigate();
 
-  const submitReview = () => {
+  const submitResult = async (message) => {
+    const nickname = localStorage.getItem("nickname")?.trim() || "Player";
+    const result = JSON.parse(localStorage.getItem("lastGameResult") || "{}");
+    const themeId = getCurrentThemeId();
+    const clearTime = Number(result.clearTime) || 0;
+    const hintCount = Number(localStorage.getItem("hintCount")) || 0;
+    const endingType = result.endingType || "normal";
+
+    const rank = await ranksApi.create({
+      themeId,
+      userName: nickname,
+      clearTime,
+      hintCount,
+      endingType,
+    });
+
+    localStorage.setItem("lastRank", JSON.stringify(rank));
+
+    if (message) {
+      await guestbookApi.create({
+        themeId,
+        rankId: rank.id,
+        message,
+      });
+    }
+  };
+
+  const submitReview = async () => {
     const review = desc.trim();
 
     if (!review) {
       return;
     }
 
+    setIsSubmitting(true);
     localStorage.setItem("review", review);
     localStorage.setItem("reviewSubmittedAt", new Date().toISOString());
-    navigate("/ranking");
+
+    try {
+      await submitResult(review);
+    } catch (error) {
+      console.warn("Failed to submit review to API. Keeping local review.", error);
+    } finally {
+      setIsSubmitting(false);
+      navigate("/ranking");
+    }
+  };
+
+  const skipReview = async () => {
+    setIsSubmitting(true);
+
+    try {
+      await submitResult("");
+    } catch (error) {
+      console.warn("Failed to submit rank to API. Showing ranking fallback.", error);
+    } finally {
+      setIsSubmitting(false);
+      navigate("/ranking");
+    }
   };
 
   return (
@@ -40,9 +92,9 @@ function Review() {
           boxShadow: "0 24px 80px rgba(0, 0, 0, 0.55)",
         }}
       >
-        <h1 style={{ margin: "0 0 20px", fontSize: "clamp(2rem, 5vw, 3.6rem)" }}>엔딩 한마디</h1>
+        <h1 style={{ margin: "0 0 20px", fontSize: "clamp(2rem, 5vw, 3.6rem)" }}>Ending Review</h1>
         <textarea
-          placeholder="한마디를 입력해주세요"
+          placeholder="Leave a review"
           value={desc}
           onChange={(e) => setDesc(e.target.value)}
           maxLength={90}
@@ -59,11 +111,11 @@ function Review() {
           }}
         />
         <div style={{ display: "flex", justifyContent: "flex-end", gap: "10px", marginTop: "16px" }}>
-          <button type="button" onClick={() => navigate("/ranking")} style={secondaryButtonStyle}>
-            건너뛰기
+          <button type="button" onClick={skipReview} disabled={isSubmitting} style={secondaryButtonStyle}>
+            Skip
           </button>
-          <button type="button" onClick={submitReview} disabled={!desc.trim()} style={buttonStyle}>
-            등록
+          <button type="button" onClick={submitReview} disabled={!desc.trim() || isSubmitting} style={buttonStyle}>
+            {isSubmitting ? "Saving..." : "Submit"}
           </button>
         </div>
       </section>

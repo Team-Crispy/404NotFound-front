@@ -1,97 +1,92 @@
-import { useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import RankingCard from "../../components/common/RankingCard";
 import backBtn from "../../assets/back_Button.svg";
 import bg from "../../assets/Ranking_Background.png";
+import { getCurrentThemeId, ranksApi } from "../../services/api";
 import "../../styles/Ranking.css";
 
-const RANKINGS = [
-  {
-    rank: 1,
-    name: "집가고싶다",
-    time: "03:27",
-    desc: "it쇼를 왜 6월에 하는지 정말 모르겠다~ it쇼를 왜 6월에 하는지 정말 모르겠다~",
-  },
-  {
-    rank: 2,
-    name: "Oscar Piastri",
-    time: "08:10",
-    desc: "OscAR pIASTrI OscAR pIASTrI OscAR pIASTrI OscAR pIASTrI OscAR pIASTrI",
-  },
-  {
-    rank: 3,
-    name: "test",
-    time: "08:05",
-    desc: "아이스크림 림보 보라색 색동저고리",
-  },
-  {
-    rank: 4,
-    name: "ganggangseohyeon",
-    time: "04:21",
-    desc: "재밋게 햇습니다...............",
-  },
-  {
-    rank: 5,
-    name: "별찍기",
-    time: "16:47",
-    desc: "이중 for문을 쓰면 정말 정말로 쉽습니다",
-  },
-  {
-    rank: 6,
-    name: "집가고싶다",
-    time: "03:27",
-    desc: "it쇼를 왜 6월에 하는지 정말 모르겠다~ it쇼를 왜 6월에 하는지 정말 모르겠다~",
-  },
-  {
-    rank: 7,
-    name: "Oscar Piastri",
-    time: "08:10",
-    desc: "OscAR pIASTrI OscAR pIASTrI OscAR pIASTrI OscAR pIASTrI OscAR pIASTrI",
-  },
-  {
-    rank: 8,
-    name: "test",
-    time: "08:05",
-    desc: "아이스크림 림보 보라색 색동저고리",
-  },
-  {
-    rank: 9,
-    name: "ganggangseohyeon",
-    time: "04:21",
-    desc: "재밋게 햇습니다...............",
-  },
-  {
-    rank: 10,
-    name: "별찍기",
-    time: "16:47",
-    desc: "이중 for문을 쓰면 정말 정말로 쉽습니다",
-  },
+const FALLBACK_RANKINGS = [
+  { rank: 1, name: "Player", time: "03:27", desc: "Local ranking fallback" },
+  { rank: 2, name: "Oscar Piastri", time: "08:10", desc: "Local ranking fallback" },
+  { rank: 3, name: "test", time: "08:05", desc: "Local ranking fallback" },
+  { rank: 4, name: "ganggangseohyeon", time: "04:21", desc: "Local ranking fallback" },
+  { rank: 5, name: "guest", time: "16:47", desc: "Local ranking fallback" },
 ];
+
+function formatSeconds(totalSeconds) {
+  const safeSeconds = Math.max(0, Number(totalSeconds) || 0);
+  const minutes = Math.floor(safeSeconds / 60);
+  const seconds = safeSeconds % 60;
+
+  return `${minutes}:${String(seconds).padStart(2, "0")}`;
+}
+
+function toRankingCard(rank) {
+  return {
+    rank: Number(rank.rank),
+    name: rank.user_name || "Player",
+    time: formatSeconds(rank.clear_time),
+    desc: rank.message || `${rank.hint_count ?? 0} hint(s) · ${rank.ending_type || "normal"}`,
+  };
+}
 
 function Ranking() {
   const navigate = useNavigate();
+  const [apiRankings, setApiRankings] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    let ignore = false;
+
+    ranksApi
+      .listByTheme(getCurrentThemeId())
+      .then((rankings) => {
+        if (!ignore) {
+          setApiRankings(Array.isArray(rankings) ? rankings.map(toRankingCard) : []);
+        }
+      })
+      .catch((error) => {
+        console.warn("Failed to load rankings from API. Using fallback rankings.", error);
+      })
+      .finally(() => {
+        if (!ignore) {
+          setIsLoading(false);
+        }
+      });
+
+    return () => {
+      ignore = true;
+    };
+  }, []);
+
   const rankings = useMemo(() => {
+    if (apiRankings.length > 0) {
+      return apiRankings;
+    }
+
     const review = localStorage.getItem("review")?.trim();
-    const nickname = localStorage.getItem("nickname")?.trim() || "플레이어";
+    const nickname = localStorage.getItem("nickname")?.trim() || "Player";
+    const result = JSON.parse(localStorage.getItem("lastGameResult") || "{}");
 
     if (!review) {
-      return RANKINGS;
+      return FALLBACK_RANKINGS;
     }
 
     return [
       {
         rank: 1,
         name: nickname,
-        time: "CLEAR",
+        time: formatSeconds(result.clearTime),
         desc: review,
       },
-      ...RANKINGS.map((item, index) => ({
+      ...FALLBACK_RANKINGS.map((item, index) => ({
         ...item,
         rank: index + 2,
       })),
     ];
-  }, []);
+  }, [apiRankings]);
 
   return (
     <div
@@ -106,17 +101,23 @@ function Ranking() {
     >
       <img
         src={backBtn}
-        alt="뒤로가기"
+        alt="back"
         onClick={() => navigate(-1)}
         style={{ cursor: "pointer" }}
         className="back-button"
       />
       <ul className="ranking-card-area">
-        {rankings.map((item) => (
-          <li key={`${item.rank}-${item.name}`}>
-            <RankingCard rank={item.rank} name={item.name} time={item.time} desc={item.desc} />
+        {isLoading ? (
+          <li>
+            <RankingCard rank={0} name="Loading" time="--:--" desc="Loading rankings..." />
           </li>
-        ))}
+        ) : (
+          rankings.map((item) => (
+            <li key={`${item.rank}-${item.name}-${item.time}`}>
+              <RankingCard rank={item.rank} name={item.name} time={item.time} desc={item.desc} />
+            </li>
+          ))
+        )}
       </ul>
     </div>
   );
