@@ -21,17 +21,19 @@ html, body {
     position: absolute;
     top: 40px;
     left: 42px;
-    width: 120px;
-    padding: 0;
-    background: none;
-    border: none;
+    min-width: 132px;
+    height: 52px;
+    padding: 0 18px;
+    border: 0;
+    border-radius: 14px;
+    background: #7e2929;
+    color: #f0f0f0;
     cursor: pointer;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 1;
+    box-shadow: 0 0 6px rgba(255, 255, 255, 0.8);
     transition: transform 0.2s ease-in-out;
-}
-
-.tutorial-back-btn img {
-    display: block;
-    width: 100%;
 }
 
 .tutorial-back-btn:hover {

@@ -2,7 +2,6 @@ import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import RankingCard from "../../components/common/RankingCard";
-import backBtn from "../../assets/back_Button.svg";
 import bg from "../../assets/Ranking_Background.png";
 import { getCurrentThemeId, ranksApi } from "../../services/api";
 import "../../styles/Ranking.css";
@@ -99,13 +98,13 @@ function Ranking() {
         backgroundPosition: "center",
       }}
     >
-      <img
-        src={backBtn}
-        alt="back"
+      <button
+        type="button"
         onClick={() => navigate(-1)}
-        style={{ cursor: "pointer" }}
         className="back-button"
-      />
+      >
+        &lt; 돌아가기
+      </button>
       <ul className="ranking-card-area">
         {isLoading ? (
           <li>
