@@ -100,7 +100,7 @@ function Ranking() {
     >
       <button
         type="button"
-        onClick={() => navigate(-1)}
+        onClick={() => navigate("/Home")}
         className="back-button"
       >
         &lt; 돌아가기

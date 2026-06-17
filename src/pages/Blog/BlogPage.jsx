@@ -2,7 +2,28 @@ import { Fragment, useEffect, useState } from 'react';
 import { Link, Navigate, useNavigate, useParams } from 'react-router-dom';
 
 import Timer from '../../components/game/Timer';
+import jihyunBlogImage1 from '../../assets/블로그1본문이미지.png';
+import jihyunBlogImage2A from '../../assets/블로그2본문이미지1.png';
+import jihyunBlogImage2B from '../../assets/블로그2본문이미지2.png';
+import jihyunBlogImage3 from '../../assets/블로그3본문이미지.png';
+import minhooBlogImage1 from '../../assets/블로그(민후버전)1본문이미지.png';
+import minhooBlogImage2 from '../../assets/블로그(민후버전)2본문이미지.png';
+import minhooBlogImage3 from '../../assets/블로그(민후버전)3본문이미지.png';
+import gangjaeProfileImage from '../../assets/kangj.svg';
+import minhooProfileImage from '../../assets/jang.svg';
 import laptopLockScreen from '../../assets/노트북잠금화면.svg';
+import blogProfileImage from '../../assets/프로필.svg';
+
+const commentAvatarByAuthor = {
+  minhoo0401: {
+    className: 'comment-avatar-card minhoo',
+    src: minhooProfileImage,
+  },
+  gangjae000: {
+    className: 'comment-avatar-card gangjae',
+    src: gangjaeProfileImage,
+  },
+};
 
 const posts = [
   {
@@ -11,6 +32,8 @@ const posts = [
     corruptTitle: '[공지] 로그아웃',
     date: '2026.05.12',
     image: 'post2',
+    listImage: blogProfileImage,
+    hideDetailImage: true,
     excerpt: '오늘 올린 서해 여행 글을 마지막으로, 당분간 블로그와 인스타그램을 포함한 모든 SNS를 쉬어갑니다.',
     body: [
       '여러분, 방금 서해 여행을 마치고 돌아오는 길에 진지하게 고민을 좀 했습니다.',
@@ -46,8 +69,9 @@ const posts = [
     corruptTitle: '[404] 깨진 기록',
     date: '2026.05.12',
     image: 'post1',
-    detailImages: ['/blog-assets/blog1-body.png'],
-    detailImageSlots: [6],
+    listImage: minhooBlogImage3,
+    detailImages: [minhooBlogImage1, minhooBlogImage2, minhooBlogImage3],
+    detailImageSlots: [1, 6, 9],
     excerpt: '갑자기 바다가 보고 싶어서 혼자 서해 바다에 다녀왔다. 혼자 하는 여행도 은근히 매력 있는 듯하다.',
     body: [
       '어제 블로그에 썼던 대로, 오늘 드디어 혼자 서해 바다에 다녀왔다.',
@@ -86,18 +110,68 @@ const posts = [
   },
   {
     id: 3,
-    title: '[일상] 봄 날씨가 좋다',
+    title: '[일상] 시험공부 파이팅 해야지',
+    corruptTitle: '[404] 깨진 기록',
+    date: '2026.05.08',
+    image: 'post1',
+    listImage: jihyunBlogImage3,
+    detailImages: [jihyunBlogImage3],
+    detailImageSlots: [3],
+    excerpt: '시험기간 시작... 공부해야지 하는데 왜 책만 펴면 갑자기 졸린건지.',
+    body: [
+      '시험기간 시작...',
+      '진짜 공부해야지 해야지 하는데 왜 책만 펴면 갑자기 졸린건지( ⚆ ⚆)',
+      '분명 책상에 앉은 건 맞는데 정신 차려보면 핸드폰 보고 있어서 민후 오빠랑 카공하려고 만났는데 결국 떠들기만 했네(꜆꜄ `ㆆ⩊ㆆ)꜆꜄꜆',
+      '그래도 담날에 만났을 땐 진짜 열심히 한 것 같아서 뿌듯했다',
+      '그리고 모르는 문제는 민후 오빠가 설명 해주면서 풀어줘서 이해가 쏙쏙 된 듯',
+      '진짜 울 오빠 밖에 없다(⌯˃̶᷄ ﹏ ˂̶᷄⌯)ﾟ',
+      '중간중간 간식도 먹으면서 "우리 진짜 열심히 하고 있다" 하고 응원도 해줬어 !!',
+      '공부는 힘들지만 끝나고 나면 뿌듯하겠지??',
+      '오빠가 시험 결과보다는 준비하는 과정이 중요한거라고 했는데 아직은 잘 모르겠어.. ( º﹏º｡ )',
+      '어디에서 후회 안남게 열심히 준비해서 좋은 결과를 만들어내야지 !!',
+      '다들 시험 파이팅!!',
+    ],
+    corruptBody: [
+      '문장들이 연결되어 이름을 만든다.',
+      '마지막 문장은 아직 저장되지 않았다.',
+    ],
+    comments: [
+      {
+        author: 'gangjae000',
+        text: '그날 바람 많이 불었지. 네가 계단 쪽에서 사진 찍던 것도 기억나.',
+        time: '2026.05.12',
+      },
+      {
+        author: 'gangjae000',
+        text: '다음에 또 가면 알려줘. 아니, 안 알려줘도 아마 알게 될 것 같아.',
+        time: '2026.05.12',
+      },
+      {
+        author: 'minhoo0401',
+        text: '사진 확인했다. 다음 일정은 미리 말해줘.',
+        time: '2026.05.13',
+      },
+    ],
+  },
+  {
+    id: 4,
+    title: '[일상] 봄 날씨가 너무 좋아서 그래',
     corruptTitle: '[???] 예약 내역 오류',
     date: '2026.05.11',
     image: 'post2',
-    detailImages: ['/blog-assets/blog2-body-1.png', '/blog-assets/blog2-body-2.png'],
+    listImage: jihyunBlogImage2A,
+    detailImages: [jihyunBlogImage2A, jihyunBlogImage2B],
+    detailImageCaptions: ['구름이 쿼카랑 강아지처럼 보이길래 .. ﾍ(=￣∇￣)ﾉ'],
     detailImageSlots: [1, 3],
-    excerpt: '날씨가 좋아서 오래 걸었다. 카페에서 받은 쿠키도 맛있었다.',
+    excerpt: '학교 끝나고 집 가려고 하는데 날이 너무 좋아서 산책 좀 했다. 오늘까지만 놀고 내일부터는 열심히 공부 해야지.',
     body: [
-      '오늘은 날씨가 너무 좋아서 산책을 했다.',
-      '친구가 보내준 쿠폰으로 음료도 마셨다.',
-      '해야 할 일은 많지만 잠깐 쉬는 것도 필요하다.',
-      '내일은 다시 공부를 해야겠다.',
+      '학교 끝나고 집 가려고 하는데 날이 너무 좋아서 산책 좀 했어 ଘ(੭ˊ꒳ˋ)੭✧ !!',
+      '남친이나 친구 없이 혼자 산책 하는건 올만이라 어색했지만 바람도 선선하고 좋아하는 노래 들으면서 걸으니까 나름 이것도 좋더라 .. (˘ᵕ˘)',
+      '고삼은 낭만 챙길 시기 아니라고는 하지만 아직 새학기니까 괜찮겠지 (っ •̀ ̫•́ )︎‪‪っ',
+      '오늘까지만 놀고 내일부터는 열심히 공부 해야지 !!',
+      '그리고 오늘 오빠가 고삼 고생한다구 카페 깊티도 보내줬는데 이런 남친 또 없다 진짜⸝⸝› ‹⸝⸝',
+      '친구들이랑 같이 가라고 했는데 나중에 오빠랑 가야지 !!',
+      '나중엔 내가 오빠한테 이런 도움이 되고싶어(∩˃ω˂∩)',
     ],
     corruptBody: [
       '예약 내역은 정상인데 위치가 조금 이상하다.',
@@ -109,20 +183,27 @@ const posts = [
     ],
   },
   {
-    id: 4,
-    title: '[일상] 시험 공부 이야기',
+    id: 5,
+    title: '[일상]눈 감았다 뜨니 새해야',
     corruptTitle: '[입력] 마지막 문장',
-    date: '2026.05.08',
+    date: '2026.01.01',
     image: 'post1',
-    listImage: '/blog-assets/blog3-body.png',
-    detailImages: ['/blog-assets/blog3-body.png'],
-    detailImageSlots: [2],
-    excerpt: '시험 기간이 시작됐다. 준비하는 과정도 결과만큼 중요하다고 믿고 싶다.',
+    listImage: jihyunBlogImage1,
+    detailImages: [jihyunBlogImage1],
+    detailImageSlots: [3],
+    excerpt: '내가 벌써 고삼이라는 게 진짜 1도 안 믿긴다. 그래도 올해는 진짜 정신 차리고 열심히 공부해야지.',
     body: [
-      '시험 기간이 시작됐다.',
-      '책만 펴면 졸리지만 그래도 해야 한다.',
-      '중간중간 간식을 먹으면서 버티는 중이다.',
-      '끝나고 나면 제대로 쉬어야겠다.',
+      '내가 벌써 고삼이라는 게 진짜 1도 안 믿긴다 ( º﹏º｡ )',
+      '그래도 올해는 진짜 정신 차리고 열심히 공부해서 꼭 원하는 대학 가야지 !!',
+      '라고 거창하게 결심해놓고 역시 새해 첫날엔 떡국 야무지게 먹고 푸데데 자는게 국룰이지..',
+      '하루 종일 이불 속에서 굴러다니는 중 ㅋㅋㅋ 원래 고3은 체력 보충 해야돼',
+      '그나저나 이틀 뒤에 민후오빠 만나기로 했는데 뭐 입고 나가지... ㅎㅎ??',
+      '날씨 추운데 옷장에 입을 옷이 왜 이렇게 없는지 모르겠다 ᐡ⸝⸝⸝⸝ᐡ💦',
+      '생각해 보니까 우리가 벌써 일년 넘게 사귀었다는게 신기해',
+      '그동안 투닥거리기도 많이 했지만 앞으로도 오래오래 예쁘게 잘 사귀고 싶어 ( ♡‧̫♡ )',
+      '내 로망은 오빠랑 같은 대학 가서 CC도 하고 수능 끝나면 같이 해외여행도 가는건데 //',
+      '내 로망 다 이룰 수 있게 올해 딱 집중해서 열공해야지.',
+      '고삼 파이팅 🔥',
     ],
     corruptBody: [
       '문장들이 연결되어 이름을 만든다.',
@@ -135,9 +216,19 @@ const posts = [
   },
 ];
 
-const categories = ['전체보기 (4)', '공지 (1)', '일상 (3)'];
+const categories = ['전체보기 (5)', '공지 (1)', '일상 (4)'];
+
+function getPostListImage(post, isCorrupt) {
+  if (!isCorrupt && post.listImage) {
+    return post.listImage;
+  }
+
+  return `/blog-assets/${post.image}-${isCorrupt ? 'corrupt' : 'normal'}.jpg`;
+}
 
 function BlogSidebar({ isCorrupt }) {
+  const recentImages = posts.slice(0, 2).map((post) => getPostListImage(post, isCorrupt));
+
   return (
     <aside className="blog-profile">
       <img
@@ -167,8 +258,9 @@ function BlogSidebar({ isCorrupt }) {
       <section className="recent-images" aria-label="recent images">
         <h3>최근 이미지</h3>
         <div>
-          <img src="/blog-assets/post1-normal.jpg" alt="" />
-          <img src="/blog-assets/post2-normal.jpg" alt="" />
+          {recentImages.map((image) => (
+            <img src={image} alt="" key={image} />
+          ))}
         </div>
       </section>
     </aside>
@@ -200,7 +292,7 @@ function BlogList({ isCorrupt }) {
           <article className="blog-post">
             <img
               className="post-image"
-              src={!isCorrupt && post.listImage ? post.listImage : `/blog-assets/${post.image}-${isCorrupt ? 'corrupt' : 'normal'}.jpg`}
+              src={getPostListImage(post, isCorrupt)}
               alt=""
             />
             <div className="post-content">
@@ -228,7 +320,17 @@ function BlogComments({ initialComments }) {
       <div className="comment-list">
         {initialComments.map((comment, index) => (
           <article className="comment-item" key={`${comment.author}-${comment.time}-${index}`}>
-            <img className="comment-avatar" src="/blog-assets/profile-normal.jpg" alt="" />
+            {commentAvatarByAuthor[comment.author] ? (
+              <span className="comment-avatar" aria-hidden="true">
+                <img
+                  className={commentAvatarByAuthor[comment.author].className}
+                  src={commentAvatarByAuthor[comment.author].src}
+                  alt=""
+                />
+              </span>
+            ) : (
+              <img className="comment-avatar" src="/blog-assets/profile-normal.jpg" alt="" />
+            )}
             <div className="comment-body">
               <div className="comment-meta">
                 <strong>{comment.author}</strong>
@@ -253,13 +355,17 @@ function BlogDetail({ isCorrupt }) {
 
   const body = isCorrupt ? post.corruptBody : post.body;
   const hasInlineImages = !isCorrupt && post.detailImages?.length;
+  const shouldShowFallbackImage = !hasInlineImages && !post.hideDetailImage;
   const fallbackImage = `/blog-assets/${post.image}-${isCorrupt ? 'corrupt' : 'normal'}.jpg`;
   const imageSlots = post.detailImageSlots ?? [];
 
-  const renderMedia = (images) => (
+  const renderMedia = (images, captions = []) => (
     <figure className="detail-media" key={images.join('|')}>
-      {images.map((image) => (
-        <img className="detail-image" src={image} alt="" key={image} />
+      {images.map((image, index) => (
+        <Fragment key={image}>
+          <img className="detail-image" src={image} alt="" />
+          {captions[index] ? <figcaption>{captions[index]}</figcaption> : null}
+        </Fragment>
       ))}
     </figure>
   );
@@ -276,7 +382,7 @@ function BlogDetail({ isCorrupt }) {
 
       <div className="detail-divider" />
 
-      {!hasInlineImages ? renderMedia([fallbackImage]) : null}
+      {shouldShowFallbackImage ? renderMedia([fallbackImage]) : null}
 
       <div className="detail-body">
         {body.map((paragraph, index) => (
@@ -284,7 +390,9 @@ function BlogDetail({ isCorrupt }) {
             <p>{paragraph}</p>
             {hasInlineImages
               ? post.detailImages.map((image, imageIndex) =>
-                  imageSlots[imageIndex] === index + 1 ? renderMedia([image]) : null,
+                  imageSlots[imageIndex] === index + 1
+                    ? renderMedia([image], [post.detailImageCaptions?.[imageIndex]])
+                    : null,
                 )
               : null}
           </Fragment>
