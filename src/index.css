@@ -158,59 +158,56 @@ a {
   z-index: 999;
   display: grid;
   place-items: center;
-  padding: 24px;
-  background: rgba(0, 0, 0, 0.78);
+  overflow: hidden;
+  background: #000000;
 }
 
-.game-over-panel {
-  width: min(520px, 100%);
-  padding: 38px 32px 34px;
-  border: 3px solid #b33838;
-  border-radius: 8px;
-  color: #ffffff;
-  text-align: center;
-  background:
-    linear-gradient(rgba(15, 15, 15, 0.94), rgba(15, 15, 15, 0.96)),
-    repeating-linear-gradient(-10deg, rgba(179, 56, 56, 0.18) 0 8px, transparent 8px 17px);
-  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.62);
+.game-over-frame {
+  position: relative;
+  width: 100vw;
+  height: 100svh;
 }
 
-.game-over-kicker {
-  margin: 0 0 8px;
-  color: #ff7474;
-  font-size: 1rem;
-  font-weight: 900;
-  letter-spacing: 0.08em;
+.game-over-screen-image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  user-select: none;
+  -webkit-user-drag: none;
 }
 
-.game-over-panel h2 {
-  margin: 0;
-  font-size: clamp(2.6rem, 7vw, 5rem);
-  line-height: 1;
+.game-over-title {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
 }
 
-.game-over-panel p:not(.game-over-kicker) {
-  margin: 18px 0 28px;
-  color: #d8d8d8;
-  font-size: clamp(1rem, 2vw, 1.25rem);
-}
-
-.game-over-panel button {
-  min-width: 150px;
-  min-height: 48px;
+.game-over-retry {
+  position: absolute;
+  left: 50%;
+  top: 72%;
+  z-index: 2;
+  width: clamp(96px, 9.8vw, 188px);
+  height: clamp(38px, 5.8vw, 76px);
   border: 0;
-  border-radius: 6px;
-  color: #ffffff;
-  background: #b33838;
-  font-weight: 900;
+  border-radius: 12px;
+  padding: 0;
+  background: transparent;
+  transform: translate(-50%, -50%);
+  transition: background 140ms ease, backdrop-filter 140ms ease, transform 140ms ease;
   cursor: pointer;
 }
 
-.game-over-panel button:hover,
-.game-over-panel button:focus-visible {
-  outline: 3px solid rgba(255, 116, 116, 0.42);
-  outline-offset: 3px;
-  background: #cc4444;
+.game-over-retry:hover,
+.game-over-retry:focus-visible {
+  outline: 0;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: brightness(1.18);
+  transform: translate(-50%, -50%) scale(1.03);
 }
 
 .room-control,

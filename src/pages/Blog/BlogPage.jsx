@@ -434,7 +434,7 @@ function BlogPage({ variant }) {
   const handleUnlock = (event) => {
     event.preventDefault();
 
-    if (password === '1234') {
+    if (password === '0401') {
       setIsUnlocked(true);
       setPasswordError(false);
       return;

@@ -1,4 +1,5 @@
 import { useTimer } from '../../hooks/useTimer';
+import gameOverFullScreen from '../../assets/게임오버전체화면.svg';
 
 function GameOverOverlay() {
   const { isStarted, isTimeOver, resetTimer } = useTimer();
@@ -9,13 +10,12 @@ function GameOverOverlay() {
 
   return (
     <section className="game-over-overlay" role="alertdialog" aria-modal="true" aria-labelledby="game-over-title">
-      <div className="game-over-panel">
-        <p className="game-over-kicker">TIME OVER</p>
-        <h2 id="game-over-title">게임오버</h2>
-        <p>남은 추리시간이 모두 소진되었습니다.</p>
-        <button type="button" onClick={resetTimer}>
-          다시 시작
-        </button>
+      <div className="game-over-frame">
+        <img className="game-over-screen-image" src={gameOverFullScreen} alt="" />
+        <h2 id="game-over-title" className="game-over-title">
+          게임오버
+        </h2>
+        <button type="button" className="game-over-retry" onClick={resetTimer} aria-label="다시하기" />
       </div>
     </section>
   );
