@@ -17,6 +17,27 @@ html, body {
     background-position: center;
 }
 
+.tutorial-back-btn {
+    position: absolute;
+    top: 40px;
+    left: 42px;
+    width: 120px;
+    padding: 0;
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out;
+}
+
+.tutorial-back-btn img {
+    display: block;
+    width: 100%;
+}
+
+.tutorial-back-btn:hover {
+    transform: scale(0.95);
+}
+
 .ok_btn {
     position: absolute; 
     top: 984px;      
