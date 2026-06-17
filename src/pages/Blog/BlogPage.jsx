@@ -425,11 +425,28 @@ function BlogPage({ variant }) {
   }, []);
 
   const handleClose = () => {
+    if (isClosing) {
+      return;
+    }
+
     setIsClosing(true);
     window.setTimeout(() => {
       navigate('/room');
     }, 520);
   };
+
+  useEffect(() => {
+    const handleKeyDown = (event) => {
+      if (event.key === 'Escape') {
+        handleClose();
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  });
 
   const handleUnlock = (event) => {
     event.preventDefault();

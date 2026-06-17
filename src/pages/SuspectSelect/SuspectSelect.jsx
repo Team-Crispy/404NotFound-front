@@ -34,7 +34,7 @@ const SUSPECTS = [
     top: "230px",
     left: "28%",
     rotate: 0,
-    tapes: [{ img: tape1, top: "172px", left: "519px", rotate: 1 }],
+    tapes: [{ img: tape1, top: "-34px", left: "-18px", rotate: -13, width: "120px" }],
   },
   {
     name: "강재후",
@@ -45,8 +45,8 @@ const SUSPECTS = [
     left: "42%",
     rotate: 8,
     tapes: [
-      { img: tape2, top: "335px", left: "726px", rotate: 5 },
-      { img: tape3, top: "573px", left: "870px" },
+      { img: tape2, top: "-32px", left: "-10px", rotate: -7, width: "118px" },
+      { img: tape3, top: "262px", left: "158px", rotate: -25, width: "116px" },
     ],
   },
   {
@@ -57,7 +57,7 @@ const SUSPECTS = [
     top: "30%",
     left: "58%",
     rotate: 0,
-    tapes: [{ img: tape4, top: "249px", left: "1010px", rotate: 1 }],
+    tapes: [{ img: tape4, top: "-30px", left: "146px", rotate: 14, width: "104px" }],
   },
 ];
 
@@ -148,18 +148,25 @@ function SuspectSelect({ onSelect }) {
   return (
     <div className="SuspectSelect" style={{ backgroundImage: `url(${bgChanged ? bg2 : bg})` }}>
       {SUSPECTS.map((suspect) => (
-        <div key={suspect.name}>
+        <div
+          className="suspect-group"
+          key={suspect.name}
+          style={{
+            top: suspect.top,
+            left: suspect.left,
+          }}
+        >
           {suspect.tapes?.map((tape, idx) => (
             <img
               key={`${suspect.name}-${idx}`}
               src={tape.img}
               alt=""
+              className="suspect-tape"
               style={{
-                position: "absolute",
                 top: tape.top,
                 left: tape.left,
+                width: tape.width,
                 transform: `rotate(${tape.rotate ?? 0}deg)`,
-                zIndex: 2,
               }}
             />
           ))}
@@ -180,11 +187,7 @@ function SuspectSelect({ onSelect }) {
               }
             }}
             style={{
-              position: "absolute",
-              top: suspect.top,
-              left: suspect.left,
               transform: `rotate(${suspect.rotate}deg)`,
-              zIndex: 1,
               cursor: arrested ? "default" : "pointer",
             }}
           />
