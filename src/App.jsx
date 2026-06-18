@@ -1,6 +1,7 @@
 import { HashRouter, Navigate, Route, Routes } from "react-router-dom";
 
 import BgmController from "./components/game/BgmController";
+import ClickSoundController from "./components/game/ClickSoundController";
 import GameOverOverlay from "./components/game/GameOverOverlay";
 import RefreshGuard from "./components/game/RefreshGuard";
 import BlogPage from "./pages/Blog/BlogPage";
@@ -47,6 +48,7 @@ function App() {
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
       <BgmController />
+      <ClickSoundController />
       <RefreshGuard />
       <GameOverOverlay />
     </HashRouter>

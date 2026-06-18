@@ -14,9 +14,9 @@
   margin: 0;
   padding: 0;
   position: absolute;
-  top: 53%;
+  top: 20%;
   left: 50%;
-  transform: translate(-50%, -42%);
+  transform: translateX(-50%);
   width: 46vw;
   max-width: 680px;
   
