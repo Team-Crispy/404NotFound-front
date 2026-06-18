@@ -225,7 +225,11 @@ function getPostListImage(post, isCorrupt) {
 }
 
 function BlogSidebar({ isCorrupt }) {
+  const navigate = useNavigate();
   const recentImages = posts.slice(0, 2).map((post) => getPostListImage(post, isCorrupt));
+  const handleBlock = () => {
+    navigate('/blog-corrupt');
+  };
 
   return (
     <aside className="blog-profile">
@@ -243,7 +247,7 @@ function BlogSidebar({ isCorrupt }) {
       <p className="profile-copy">안녕하세요. 지현이의 블로그입니다.</p>
       <div className="profile-actions">
         <button type="button">{isCorrupt ? '???' : '+ 이웃'}</button>
-        <button type="button">{isCorrupt ? '차단' : '차단'}</button>
+        <button type="button" onClick={handleBlock}>{isCorrupt ? '차단됨' : '차단하기'}</button>
       </div>
 
       <section className="blog-categories">
@@ -266,18 +270,40 @@ function BlogSidebar({ isCorrupt }) {
 }
 
 function BlogList({ isCorrupt }) {
-  const navigate = useNavigate();
+  const [searchTerm, setSearchTerm] = useState('');
+  const [submittedTerm, setSubmittedTerm] = useState('');
   const basePath = isCorrupt ? '/blog-corrupt' : '/blog';
+  const normalizedSearchTerm = submittedTerm.trim().toLowerCase();
+  const visiblePosts = normalizedSearchTerm
+    ? posts.filter((post) => {
+      const searchableText = [
+        post.title,
+        post.corruptTitle,
+        post.date,
+        post.excerpt,
+        ...post.body,
+        ...post.corruptBody,
+        ...post.comments.map((comment) => `${comment.author} ${comment.text} ${comment.time}`),
+      ].join(' ').toLowerCase();
+
+      return searchableText.includes(normalizedSearchTerm);
+    })
+    : posts;
 
   const handleSearch = (event) => {
     event.preventDefault();
-    navigate(isCorrupt ? '/blog' : '/blog-corrupt');
+    setSubmittedTerm(searchTerm);
   };
 
   return (
     <section className="blog-feed" aria-label="blog posts">
       <form className="blog-search" onSubmit={handleSearch}>
-        <input placeholder={isCorrupt ? '검색 결과가 깨졌습니다.' : '검색할 글을 입력하세요'} aria-label="blog search" />
+        <input
+          value={searchTerm}
+          onChange={(event) => setSearchTerm(event.target.value)}
+          placeholder={isCorrupt ? '검색 결과가 깨졌습니다.' : '검색할 글을 입력하세요'}
+          aria-label="blog search"
+        />
         <button type="submit" aria-label="search" />
       </form>
 
@@ -285,7 +311,7 @@ function BlogList({ isCorrupt }) {
         <img src={`/blog-assets/ad-${isCorrupt ? 'corrupt' : 'normal'}.jpg`} alt="ad banner" />
       </section>
 
-      {posts.map((post) => (
+      {visiblePosts.length > 0 ? visiblePosts.map((post) => (
         <Link className="blog-post-link" to={`${basePath}/${post.id}`} key={post.id}>
           <article className="blog-post">
             <img
@@ -300,7 +326,9 @@ function BlogList({ isCorrupt }) {
             </div>
           </article>
         </Link>
-      ))}
+      )) : (
+        <p className="blog-empty">검색 결과가 없습니다.</p>
+      )}
     </section>
   );
 }

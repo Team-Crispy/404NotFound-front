@@ -1334,6 +1334,17 @@ a {
   background: #7a3d3d;
 }
 
+.blog-empty {
+  margin: 0;
+  padding: 18px;
+  border: 2px solid #6f8d5f;
+  border-radius: 5px;
+  background: #ffffff;
+  color: #555555;
+  font-weight: 700;
+  text-align: center;
+}
+
 .blog-ad {
   min-height: 0;
   padding: 0;
