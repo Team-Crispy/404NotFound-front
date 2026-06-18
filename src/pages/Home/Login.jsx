@@ -43,14 +43,15 @@ function Login() {
             }
 
             navigate('/opening');
-
-            // 만약 다음 페이지로 닉네임 데이터도 같이 넘겨주고 싶다면 아래처럼 보낼 수 있습니다.
-            // navigate('/room', { state: { name: nickname } });
         }
     };
 
     return (
         <div className="login-background">
+            <button type="button" className="login-back-button" onClick={() => navigate('/')} aria-label="뒤로가기">
+                &lt; 뒤로가기
+            </button>
+
             <div className="login-stage">
                 <input
                     type="text"

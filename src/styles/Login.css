@@ -29,6 +29,35 @@ html, body {
     transform: translate(-50%, -50%);
 }
 
+.login-back-button {
+    position: fixed;
+    left: clamp(18px, 2.2vw, 42px);
+    top: clamp(18px, 2.2vw, 42px);
+    z-index: 2;
+    min-width: clamp(116px, 9vw, 148px);
+    height: clamp(42px, 4vw, 52px);
+    padding: 0 clamp(14px, 1.4vw, 18px);
+    border: 0;
+    border-radius: 12px;
+    background: #7e2929;
+    color: #f0f0f0;
+    cursor: pointer;
+    outline: none;
+    font-family: 'Gowun Dodum', sans-serif;
+    font-size: clamp(16px, 1.45vw, 20px);
+    font-weight: 700;
+    line-height: 1;
+    white-space: nowrap;
+    box-shadow: 0 0 6px rgba(255, 255, 255, 0.65);
+    transition: filter 0.2s ease-in-out, transform 0.2s ease-in-out;
+}
+
+.login-back-button:hover,
+.login-back-button:focus-visible {
+    filter: saturate(2.2) brightness(1.14) drop-shadow(0 0 8px rgba(240, 37, 37, 0.5));
+    transform: scale(1.03);
+}
+
 .nickname-input {
     position: absolute;
     left: 32.18%;
@@ -60,6 +89,8 @@ html, body {
 
     font-family: 'Gowun Dodum', sans-serif;
     caret-color: rgba(22, 22, 24, 0.9);
+    opacity: 0;
+    animation: nicknameInputFadeIn 0.7s ease-out 0.95s forwards;
 }
 
 .nickname-input:focus {
@@ -113,5 +144,21 @@ html, body {
     to {
         opacity: 1;
         transform: translateY(0);
+    }
+}
+
+@keyframes nicknameInputFadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .nickname-input {
+        opacity: 1;
+        animation: none;
     }
 }
