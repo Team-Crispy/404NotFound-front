@@ -13,6 +13,11 @@ import gangjaeProfileImage from '../../assets/kangj.svg';
 import minhooProfileImage from '../../assets/jang.svg';
 import laptopLockScreen from '../../assets/노트북잠금화면.svg';
 import blogProfileImage from '../../assets/프로필.svg';
+import desktopWallpaper from '../../assets/배경화면기본.png';
+import stopViewingButtonImage from '../../assets/그만보기버튼.svg';
+import folderIconImage from '../../assets/folderIcon.png';
+import delogIconImage from '../../assets/delogIcon.png';
+import chatlogImage from '../../assets/chatlog.png';
 
 const commentAvatarByAuthor = {
   minhoo0401: {
@@ -82,13 +87,13 @@ const posts = [
       '다음에는 시간을 더 길게 내서 와보고 싶다.',
     ],
     corruptBody: [
-      '페이지가 이상하게 반복된다.',
-      '사진 속 계단과 문장이 계속 연결되는 것처럼 보인다.',
+      '너가 어떻게 이럴수있어',
+      '내가 뭘 잘못햇는데..',
     ],
     comments: [
       {
         author: 'gangjae000',
-        text: '그날 바람 많이 불었지. 네가 계단 쪽에서 사진 찍던 것도 기억나.',
+        text: '재밌었나?ㅋㅋ 나도 좀 봐주지?',
         time: '2026.05.12',
       },
       {
@@ -122,13 +127,13 @@ const posts = [
       '다들 시험 파이팅!!',
     ],
     corruptBody: [
-      '문장들이 연결되어 이름을 만든다.',
-      '마지막 문장은 아직 저장되지 않았다.',
+      '마지막까지 실망했어',
+      '마지막까지',
     ],
     comments: [
       {
         author: 'gangjae000',
-        text: '그날 바람 많이 불었지. 네가 계단 쪽에서 사진 찍던 것도 기억나.',
+        text: '그날 바람 많이 불었지ㅋㅋ 너가 계단 쪽에서 사진 찍던 것도 기억나는데',
         time: '2026.05.12',
       },
       {
@@ -138,7 +143,7 @@ const posts = [
       },
       {
         author: 'minhoo0401',
-        text: '사진 확인했다. 다음 일정은 미리 말해줘.',
+        text: '재밌었지~ 다음에 또가자',
         time: '2026.05.13',
       },
     ],
@@ -164,8 +169,8 @@ const posts = [
       '나중엔 내가 오빠한테 이런 도움이 되고싶어(∩˃ω˂∩)',
     ],
     corruptBody: [
-      '예약 내역은 정상인데 위치가 조금 이상하다.',
-      '기다린다는 말이 계속 같은 자리에서 반복된다.',
+      '??????????????????????????????',
+      '??????????????????????????????',
     ],
     comments: [
       { author: 'minhoo0401', text: '쿠폰 쓴 건 잘했다. 늦게까지 밖에 있지는 마.', time: '2026.05.11' },
@@ -196,8 +201,10 @@ const posts = [
       '고삼 파이팅 🔥',
     ],
     corruptBody: [
-      '문장들이 연결되어 이름을 만든다.',
-      '마지막 문장은 아직 저장되지 않았다.',
+      '??????????????????????????????',
+      '??????????????????????????????',
+      '??????????????????????????????',
+      '??????????????????????????????'
     ],
     comments: [
       { author: 'gangjae000', text: '어제도 늦게까지 불 켜져 있던데, 너무 무리하지 마.', time: '2026.05.08' },
@@ -401,8 +408,14 @@ function BlogPage({ variant }) {
   const [hasOpened, setHasOpened] = useState(false);
   const [isClosing, setIsClosing] = useState(false);
   const [isUnlocked, setIsUnlocked] = useState(false);
+  const [laptopView, setLaptopView] = useState('desktop');
+  const [isChatlogOpen, setIsChatlogOpen] = useState(false);
   const [password, setPassword] = useState('');
   const [passwordError, setPasswordError] = useState(false);
+  const basePath = isCorrupt ? '/blog-corrupt' : '/blog';
+  const showDesktop = isUnlocked && laptopView === 'desktop';
+  const showBlog = isUnlocked && laptopView === 'blog';
+  const showFolder = isUnlocked && laptopView === 'folder';
 
   useEffect(() => {
     const frameId = window.requestAnimationFrame(() => {
@@ -425,9 +438,47 @@ function BlogPage({ variant }) {
     }, 520);
   };
 
+  const handleReturnDesktop = () => {
+    setIsChatlogOpen(false);
+    setLaptopView('desktop');
+    if (postId) {
+      navigate(basePath, { replace: true });
+    }
+  };
+
+  const handleWindowClose = () => {
+    if (!isUnlocked) {
+      handleClose();
+      return;
+    }
+
+    handleReturnDesktop();
+  };
+
+  const handleOpenBlog = () => {
+    setIsChatlogOpen(false);
+    navigate(basePath, { replace: true });
+    setLaptopView('blog');
+  };
+
+  const handleOpenFolder = () => {
+    setIsChatlogOpen(false);
+    setLaptopView('folder');
+  };
+
   useEffect(() => {
     const handleKeyDown = (event) => {
       if (event.key === 'Escape') {
+        if (isChatlogOpen) {
+          setIsChatlogOpen(false);
+          return;
+        }
+
+        if (showBlog || showFolder) {
+          handleReturnDesktop();
+          return;
+        }
+
         handleClose();
       }
     };
@@ -443,6 +494,7 @@ function BlogPage({ variant }) {
 
     if (password === '0401') {
       setIsUnlocked(true);
+      setLaptopView('desktop');
       setPasswordError(false);
       return;
     }
@@ -459,11 +511,29 @@ function BlogPage({ variant }) {
         className={`blog-laptop ${!isUnlocked ? 'locked' : ''} ${hasOpened ? 'opening' : ''} ${isClosing ? 'closing' : ''}`}
         aria-label={isCorrupt ? 'corrupt blog screen' : 'blog screen'}
       >
-        <button className="blog-back" type="button" onClick={handleClose} aria-label="close blog">
-          <img src="/blog-assets/close-button.svg" alt="" />
-        </button>
+        {showBlog ? (
+          <button className="blog-back" type="button" onClick={handleWindowClose} aria-label="close blog window">
+            <img src="/blog-assets/close-button.svg" alt="" />
+          </button>
+        ) : null}
 
-        {isUnlocked ? (
+        {showDesktop ? (
+          <div className="blog-desktop" style={{ backgroundImage: `url(${desktopWallpaper})` }}>
+            <button className="blog-desktop-exit" type="button" onClick={handleClose} aria-label="그만보기">
+              <img src={stopViewingButtonImage} alt="" />
+            </button>
+            <div className="blog-desktop-icons" aria-label="desktop icons">
+              <button className="blog-desktop-icon folder" type="button" onClick={handleOpenFolder} aria-label="folder">
+                <img src={folderIconImage} alt="" />
+              </button>
+              <button className="blog-desktop-icon delog" type="button" onClick={handleOpenBlog} aria-label="Delog">
+                <img src={delogIconImage} alt="" />
+              </button>
+            </div>
+          </div>
+        ) : null}
+
+        {showBlog ? (
           <div className="blog-document">
             <header className="blog-titlebar">
               <h1>jiihyunlog의 블로그</h1>
@@ -479,7 +549,51 @@ function BlogPage({ variant }) {
               {postId ? <BlogDetail isCorrupt={isCorrupt} /> : <BlogList isCorrupt={isCorrupt} />}
             </div>
           </div>
-        ) : (
+        ) : null}
+
+        {showFolder ? (
+          <div className="blog-folder-window" aria-label="folder window">
+            <div className="blog-folder-titlebar">
+              <span className="blog-folder-window-control" aria-hidden="true">-</span>
+              <span className="blog-folder-window-control square" aria-hidden="true" />
+              <button
+                className="blog-folder-close"
+                type="button"
+                onClick={handleReturnDesktop}
+                aria-label="close folder"
+              >
+                ×
+              </button>
+            </div>
+            <div className="blog-folder-content">
+              <button
+                className="blog-folder-file"
+                type="button"
+                onClick={() => setIsChatlogOpen(true)}
+                aria-label="open chatlog image"
+              >
+                <img src={chatlogImage} alt="" />
+                <span>chatlog.png</span>
+              </button>
+            </div>
+          </div>
+        ) : null}
+
+        {isChatlogOpen ? (
+          <div className="blog-image-preview" role="dialog" aria-modal="true" aria-label="chatlog image preview">
+            <button
+              className="blog-image-preview-close"
+              type="button"
+              onClick={() => setIsChatlogOpen(false)}
+              aria-label="close chatlog preview"
+            >
+              ×
+            </button>
+            <img src={chatlogImage} alt="" />
+          </div>
+        ) : null}
+
+        {!isUnlocked ? (
           <div className="blog-lock-screen">
             <img className="blog-lock-image" src={laptopLockScreen} alt="" />
             <form className="blog-lock-form" onSubmit={handleUnlock}>
@@ -509,7 +623,7 @@ function BlogPage({ variant }) {
               ) : null}
             </form>
           </div>
-        )}
+        ) : null}
       </section>
     </main>
   );
