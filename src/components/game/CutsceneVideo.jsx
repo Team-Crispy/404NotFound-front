@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 
 function CutsceneVideo({ src, onEnded, className = "" }) {
   const videoRef = useRef(null);
+  const hasEndedRef = useRef(false);
   const [needsPlay, setNeedsPlay] = useState(false);
 
   useEffect(() => {
@@ -38,9 +39,32 @@ function CutsceneVideo({ src, onEnded, className = "" }) {
   };
 
   const handleEnded = () => {
+    if (hasEndedRef.current) {
+      return;
+    }
+
+    hasEndedRef.current = true;
     window.dispatchEvent(new Event("cutscene:end"));
     onEnded?.();
   };
+
+  useEffect(() => {
+    const handleSkip = (event) => {
+      if (event.key !== ";" && event.code !== "Semicolon") {
+        return;
+      }
+
+      event.preventDefault();
+      videoRef.current?.pause();
+      handleEnded();
+    };
+
+    window.addEventListener("keydown", handleSkip);
+
+    return () => {
+      window.removeEventListener("keydown", handleSkip);
+    };
+  }, [onEnded]);
 
   return (
     <section className={["cutscene-screen", className].filter(Boolean).join(" ")} aria-label="cutscene">

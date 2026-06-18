@@ -1,4 +1,6 @@
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:3000';
+export const DEFAULT_THEME_ID = 999;
+
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'https://404notfound.mirim-it-show.site';
 
 async function request(path, options = {}) {
   const response = await fetch(`${API_BASE_URL}${path}`, {
@@ -74,7 +76,7 @@ export const guestbookApi = {
 };
 
 export function getCurrentThemeId() {
-  return Number(localStorage.getItem('themeId')) || 1;
+  return Number(localStorage.getItem('themeId')) || DEFAULT_THEME_ID;
 }
 
 export function setCurrentThemeId(themeId) {

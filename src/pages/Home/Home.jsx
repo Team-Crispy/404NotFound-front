@@ -63,18 +63,21 @@ function Home() {
 
     setBgmVolume(nextVolume);
     setIsSaved(false);
-    window.dispatchEvent(new CustomEvent('settings:volume-change', { detail: { bgmVolume: nextVolume } }));
+    window.dispatchEvent(new CustomEvent('settings:volume-change', { detail: { bgmVolume: nextVolume, sfxVolume } }));
   };
 
   const handleSfxVolumeChange = (event) => {
-    setSfxVolume(Number(event.target.value));
+    const nextVolume = Number(event.target.value);
+
+    setSfxVolume(nextVolume);
     setIsSaved(false);
+    window.dispatchEvent(new CustomEvent('settings:volume-change', { detail: { bgmVolume, sfxVolume: nextVolume } }));
   };
 
   const handleSaveSettings = () => {
     localStorage.setItem(BGM_VOLUME_KEY, String(bgmVolume));
     localStorage.setItem(SFX_VOLUME_KEY, String(sfxVolume));
-    window.dispatchEvent(new CustomEvent('settings:volume-change', { detail: { bgmVolume } }));
+    window.dispatchEvent(new CustomEvent('settings:volume-change', { detail: { bgmVolume, sfxVolume } }));
     setIsSaved(true);
   };
 

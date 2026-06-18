@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 
 import OkBtn from '../../assets/Ok.svg';
 import { useTimer } from '../../hooks/useTimer';
-import { setCurrentThemeId, themesApi } from '../../services/api';
+import { DEFAULT_THEME_ID, setCurrentThemeId, themesApi } from '../../services/api';
 import '../../styles/Login.css';
 
 function Login() {
@@ -38,8 +38,8 @@ function Login() {
                     setCurrentThemeId(firstPlayableTheme.id);
                 }
             } catch (error) {
-                console.warn('Failed to load themes. Falling back to theme 1.', error);
-                setCurrentThemeId(1);
+                console.warn(`Failed to load themes. Falling back to theme ${DEFAULT_THEME_ID}.`, error);
+                setCurrentThemeId(DEFAULT_THEME_ID);
             }
 
             navigate('/opening');

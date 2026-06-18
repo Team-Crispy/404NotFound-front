@@ -4,6 +4,7 @@ import { useLocation } from "react-router-dom";
 const BGM_BY_AREA = {
   main: "/sound/bgm_main.mp3",
   ingame: "/sound/bgm_ingame.mp3",
+  fail: "/sound/bgm_fail.mp3",
 };
 
 const BGM_VOLUME_KEY = "bgmVolume";
@@ -27,6 +28,10 @@ const MAIN_PATHS = [
 ];
 
 function getBgmArea(pathname) {
+  if (pathname === "/ending-failure") {
+    return "fail";
+  }
+
   if (MAIN_PATHS.some((path) => pathname === path || pathname.startsWith(`${path}/`))) {
     return "main";
   }

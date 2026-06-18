@@ -38,6 +38,7 @@ const pageStyle = {
   display: "grid",
   placeItems: "center",
   background: "#050505",
+  animation: "failurePageFadeIn 520ms ease-out both",
 };
 
 const backgroundStyle = {
@@ -60,30 +61,31 @@ const overlayStyle = {
 const contentStyle = {
   position: "relative",
   zIndex: 1,
-  width: "min(520px, calc(100vw - 36px))",
+  width: "min(630px, calc(100vw - 36px))",
   display: "flex",
   flexDirection: "column",
   alignItems: "center",
   transform: "translateY(-2px)",
+  animation: "failureContentFadeIn 720ms ease-out 120ms both",
 };
 
 const failureStyle = {
-  width: "min(330px, 62vw)",
+  width: "min(480px, 78vw)",
   height: "auto",
   marginBottom: "8px",
   filter: "drop-shadow(0 10px 14px rgba(0, 0, 0, 0.62))",
 };
 
 const failureTextStyle = {
-  width: "min(210px, 50vw)",
+  width: "min(260px, 58vw)",
   height: "auto",
   marginBottom: "12px",
   filter: "drop-shadow(0 2px 5px rgba(0, 0, 0, 0.84))",
 };
 
 const buttonStyle = {
-  width: "74px",
-  height: "29px",
+  width: "124px",
+  height: "49px",
   padding: 0,
   border: 0,
   background: "transparent",

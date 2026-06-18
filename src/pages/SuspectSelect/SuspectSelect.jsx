@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import CutsceneVideo from "../../components/game/CutsceneVideo";
@@ -68,6 +68,21 @@ function SuspectSelect({ onSelect }) {
   const [arrested, setArrested] = useState(false);
   const [bgChanged, setBgChanged] = useState(false);
   const [endingRoute, setEndingRoute] = useState(null);
+  const [isFailurePending, setIsFailurePending] = useState(false);
+
+  useEffect(() => {
+    if (!isFailurePending) {
+      return undefined;
+    }
+
+    const failureTimer = window.setTimeout(() => {
+      navigate("/ending-failure", { replace: true });
+    }, 1700);
+
+    return () => {
+      window.clearTimeout(failureTimer);
+    };
+  }, [isFailurePending, navigate]);
 
   const handleArrest = async () => {
     if (!selectedSuspect) {
@@ -119,7 +134,7 @@ function SuspectSelect({ onSelect }) {
       }),
     );
     stopTimer();
-    setEndingRoute("/ending-failure");
+    setIsFailurePending(true);
   };
 
   const getCardImage = (suspect) => {
@@ -170,7 +185,7 @@ function SuspectSelect({ onSelect }) {
             className={[
               "suspect-card",
               selectedSuspect === suspect.name && !arrested ? "selected" : "",
-              arrested && suspect.name === selectedSuspect && selectedSuspect === CORRECT_ANSWER ? "blink" : "",
+              arrested && suspect.name === selectedSuspect ? "blink" : "",
             ]
               .filter(Boolean)
               .join(" ")}

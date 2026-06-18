@@ -493,7 +493,7 @@ function BlogPage({ variant }) {
                 inputMode="numeric"
                 autoComplete="off"
                 autoFocus
-                placeholder="비밀번호"
+                placeholder="비밀번호(4자리)"
                 value={password}
                 onChange={(event) => {
                   setPassword(event.target.value);
