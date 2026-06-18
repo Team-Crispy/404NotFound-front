@@ -1026,6 +1026,34 @@ a {
   background: #111111;
 }
 
+.blog-lock-exit {
+  position: absolute;
+  left: 7.2%;
+  top: 7.4%;
+  z-index: 3;
+  width: clamp(96px, 8.8vw, 142px);
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  transition: filter 140ms ease, transform 140ms ease;
+}
+
+.blog-lock-exit img {
+  display: block;
+  width: 100%;
+  height: auto;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+.blog-lock-exit:hover,
+.blog-lock-exit:focus-visible {
+  outline: 0;
+  filter: brightness(1.1) drop-shadow(0 0 10px rgba(255, 255, 255, 0.28));
+  transform: translateY(-1px);
+}
+
 .blog-lock-image {
   display: block;
   width: 100%;

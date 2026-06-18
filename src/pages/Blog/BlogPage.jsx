@@ -18,6 +18,7 @@ import stopViewingButtonImage from '../../assets/그만보기버튼.svg';
 import folderIconImage from '../../assets/folderIcon.png';
 import delogIconImage from '../../assets/delogIcon.png';
 import chatlogImage from '../../assets/chatlog.png';
+import chatlog2Image from '../../assets/chatlog2.png';
 
 const commentAvatarByAuthor = {
   minhoo0401: {
@@ -409,7 +410,7 @@ function BlogPage({ variant }) {
   const [isClosing, setIsClosing] = useState(false);
   const [isUnlocked, setIsUnlocked] = useState(false);
   const [laptopView, setLaptopView] = useState('desktop');
-  const [isChatlogOpen, setIsChatlogOpen] = useState(false);
+  const [previewImage, setPreviewImage] = useState(null);
   const [password, setPassword] = useState('');
   const [passwordError, setPasswordError] = useState(false);
   const basePath = isCorrupt ? '/blog-corrupt' : '/blog';
@@ -439,7 +440,7 @@ function BlogPage({ variant }) {
   };
 
   const handleReturnDesktop = () => {
-    setIsChatlogOpen(false);
+    setPreviewImage(null);
     setLaptopView('desktop');
     if (postId) {
       navigate(basePath, { replace: true });
@@ -456,21 +457,21 @@ function BlogPage({ variant }) {
   };
 
   const handleOpenBlog = () => {
-    setIsChatlogOpen(false);
+    setPreviewImage(null);
     navigate(basePath, { replace: true });
     setLaptopView('blog');
   };
 
   const handleOpenFolder = () => {
-    setIsChatlogOpen(false);
+    setPreviewImage(null);
     setLaptopView('folder');
   };
 
   useEffect(() => {
     const handleKeyDown = (event) => {
       if (event.key === 'Escape') {
-        if (isChatlogOpen) {
-          setIsChatlogOpen(false);
+        if (previewImage) {
+          setPreviewImage(null);
           return;
         }
 
@@ -569,32 +570,44 @@ function BlogPage({ variant }) {
               <button
                 className="blog-folder-file"
                 type="button"
-                onClick={() => setIsChatlogOpen(true)}
+                onClick={() => setPreviewImage({ src: chatlogImage, label: 'chatlog.png' })}
                 aria-label="open chatlog image"
               >
                 <img src={chatlogImage} alt="" />
                 <span>chatlog.png</span>
               </button>
+              <button
+                className="blog-folder-file"
+                type="button"
+                onClick={() => setPreviewImage({ src: chatlog2Image, label: 'chatlog2.png' })}
+                aria-label="open chatlog2 image"
+              >
+                <img src={chatlog2Image} alt="" />
+                <span>chatlog2.png</span>
+              </button>
             </div>
           </div>
         ) : null}
 
-        {isChatlogOpen ? (
-          <div className="blog-image-preview" role="dialog" aria-modal="true" aria-label="chatlog image preview">
+        {previewImage ? (
+          <div className="blog-image-preview" role="dialog" aria-modal="true" aria-label={`${previewImage.label} preview`}>
             <button
               className="blog-image-preview-close"
               type="button"
-              onClick={() => setIsChatlogOpen(false)}
-              aria-label="close chatlog preview"
+              onClick={() => setPreviewImage(null)}
+              aria-label="close image preview"
             >
               ×
             </button>
-            <img src={chatlogImage} alt="" />
+            <img src={previewImage.src} alt="" />
           </div>
         ) : null}
 
         {!isUnlocked ? (
           <div className="blog-lock-screen">
+            <button className="blog-lock-exit" type="button" onClick={handleClose} aria-label="그만보기">
+              <img src={stopViewingButtonImage} alt="" />
+            </button>
             <img className="blog-lock-image" src={laptopLockScreen} alt="" />
             <form className="blog-lock-form" onSubmit={handleUnlock}>
               <label className="blog-lock-label" htmlFor="laptop-password">

@@ -6,27 +6,19 @@ import bg from "../../assets/Ranking_Background.png";
 import { getCurrentThemeId, ranksApi } from "../../services/api";
 import "../../styles/Ranking.css";
 
-const FALLBACK_RANKINGS = [
-  { rank: 1, name: "Player", time: "03:27", desc: "Local ranking fallback" },
-  { rank: 2, name: "Oscar Piastri", time: "08:10", desc: "Local ranking fallback" },
-  { rank: 3, name: "test", time: "08:05", desc: "Local ranking fallback" },
-  { rank: 4, name: "ganggangseohyeon", time: "04:21", desc: "Local ranking fallback" },
-  { rank: 5, name: "guest", time: "16:47", desc: "Local ranking fallback" },
-];
-
 function formatSeconds(totalSeconds) {
   const safeSeconds = Math.max(0, Number(totalSeconds) || 0);
   const minutes = Math.floor(safeSeconds / 60);
   const seconds = safeSeconds % 60;
 
-  return `${minutes}:${String(seconds).padStart(2, "0")}`;
+  return `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
 }
 
 function toRankingCard(rank) {
   return {
     rank: Number(rank.rank),
     name: rank.user_name || "Player",
-    time: formatSeconds(rank.clear_time),
+    time: `남은시간 - ${formatSeconds(rank.clear_time)}`,
     desc: rank.message || `${rank.hint_count ?? 0} hint(s) · ${rank.ending_type || "normal"}`,
   };
 }
@@ -35,6 +27,7 @@ function Ranking() {
   const navigate = useNavigate();
   const [apiRankings, setApiRankings] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [loadError, setLoadError] = useState("");
 
   useEffect(() => {
     let ignore = false;
@@ -44,10 +37,15 @@ function Ranking() {
       .then((rankings) => {
         if (!ignore) {
           setApiRankings(Array.isArray(rankings) ? rankings.map(toRankingCard) : []);
+          setLoadError("");
         }
       })
       .catch((error) => {
-        console.warn("Failed to load rankings from API. Using fallback rankings.", error);
+        console.warn("Failed to load rankings from API.", error);
+        if (!ignore) {
+          setApiRankings([]);
+          setLoadError("랭킹을 불러오지 못했습니다.");
+        }
       })
       .finally(() => {
         if (!ignore) {
@@ -61,30 +59,7 @@ function Ranking() {
   }, []);
 
   const rankings = useMemo(() => {
-    if (apiRankings.length > 0) {
-      return apiRankings;
-    }
-
-    const review = localStorage.getItem("review")?.trim();
-    const nickname = localStorage.getItem("nickname")?.trim() || "Player";
-    const result = JSON.parse(localStorage.getItem("lastGameResult") || "{}");
-
-    if (!review) {
-      return FALLBACK_RANKINGS;
-    }
-
-    return [
-      {
-        rank: 1,
-        name: nickname,
-        time: formatSeconds(result.clearTime),
-        desc: review,
-      },
-      ...FALLBACK_RANKINGS.map((item, index) => ({
-        ...item,
-        rank: index + 2,
-      })),
-    ];
+    return apiRankings;
   }, [apiRankings]);
 
   return (
@@ -110,12 +85,14 @@ function Ranking() {
           <li>
             <RankingCard rank={0} name="Loading" time="--:--" desc="Loading rankings..." />
           </li>
-        ) : (
+        ) : rankings.length > 0 ? (
           rankings.map((item) => (
             <li key={`${item.rank}-${item.name}-${item.time}`}>
               <RankingCard rank={item.rank} name={item.name} time={item.time} desc={item.desc} />
             </li>
           ))
+        ) : (
+          <li className="ranking-empty">{loadError || "등록된 랭킹이 없습니다."}</li>
         )}
       </ul>
     </div>
