@@ -14,7 +14,7 @@
   margin: 0;
   padding: 0;
   position: absolute;
-  top: 20%;
+  top: calc(20% + 50px);
   left: 50%;
   transform: translateX(-50%);
   width: 46vw;
@@ -30,6 +30,19 @@
   /* 스크롤바 숨기기 (선택) */
   /* scrollbar-width: none; */
 }
+
+.ranking-empty {
+  padding: 22px 24px;
+  border: 1px solid #e5d0b5;
+  border-radius: 12px;
+  color: #3d2a10;
+  background: #fef9f3;
+  font-size: 16px;
+  font-weight: 700;
+  text-align: center;
+  box-shadow: 0 6px 5px rgba(140, 90, 30, 0.15);
+}
+
 .ranking-card-area::-webkit-scrollbar {
   width: 8px;
 }
