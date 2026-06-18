@@ -227,8 +227,8 @@ function getPostListImage(post, isCorrupt) {
 function BlogSidebar({ isCorrupt }) {
   const navigate = useNavigate();
   const recentImages = posts.slice(0, 2).map((post) => getPostListImage(post, isCorrupt));
-  const handleBlock = () => {
-    navigate('/blog-corrupt');
+  const handleBlockToggle = () => {
+    navigate(isCorrupt ? '/blog' : '/blog-corrupt');
   };
 
   return (
@@ -247,7 +247,7 @@ function BlogSidebar({ isCorrupt }) {
       <p className="profile-copy">안녕하세요. 지현이의 블로그입니다.</p>
       <div className="profile-actions">
         <button type="button">{isCorrupt ? '???' : '+ 이웃'}</button>
-        <button type="button" onClick={handleBlock}>{isCorrupt ? '차단됨' : '차단하기'}</button>
+        <button type="button" onClick={handleBlockToggle}>{isCorrupt ? '차단해제' : '차단하기'}</button>
       </div>
 
       <section className="blog-categories">
