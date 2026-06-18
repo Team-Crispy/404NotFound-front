@@ -4,6 +4,8 @@ import GameOverOverlay from "./components/game/GameOverOverlay";
 import RefreshGuard from "./components/game/RefreshGuard";
 import BlogPage from "./pages/Blog/BlogPage";
 import Ending from "./pages/Ending/Ending";
+import EndingFailure from "./pages/Ending/EndingFailure";
+import EndingStory from "./pages/Ending/EndingStory";
 import Review from "./pages/Ending/Review";
 import EvidencePage from "./pages/Evidence/EvidencePage";
 import HintDetailPage from "./pages/Hint/HintDetailPage";
@@ -37,6 +39,8 @@ function App() {
         <Route path="/blog-corrupt/:postId" element={<BlogPage variant="corrupt" />} />
         <Route path="/SuspectSelect" element={<SuspectSelect />} />
         <Route path="/ending" element={<Ending />} />
+        <Route path="/ending-failure" element={<EndingFailure />} />
+        <Route path="/ending-story" element={<EndingStory />} />
         <Route path="/Review" element={<Review />} />
         <Route path="/ranking" element={<Ranking />} />
         <Route path="*" element={<Navigate to="/" replace />} />

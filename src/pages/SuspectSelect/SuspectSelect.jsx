@@ -67,8 +67,7 @@ function SuspectSelect({ onSelect }) {
   const [selectedSuspect, setSelectedSuspect] = useState(null);
   const [arrested, setArrested] = useState(false);
   const [bgChanged, setBgChanged] = useState(false);
-  const [wrongOnce, setWrongOnce] = useState(false);
-  const [showEndingVideo, setShowEndingVideo] = useState(false);
+  const [endingRoute, setEndingRoute] = useState(null);
 
   const handleArrest = async () => {
     if (!selectedSuspect) {
@@ -107,26 +106,25 @@ function SuspectSelect({ onSelect }) {
         }),
       );
       stopTimer();
-      setShowEndingVideo(true);
+      setEndingRoute("/ending");
       return;
     }
 
-    setWrongOnce(true);
+    localStorage.setItem(
+      "lastGameResult",
+      JSON.stringify({
+        clearTime: remainingSeconds,
+        endingType: "failure",
+        solvedAt: new Date().toISOString(),
+      }),
+    );
+    stopTimer();
+    setEndingRoute("/ending-failure");
   };
 
   const getCardImage = (suspect) => {
-    if (!arrested && !wrongOnce) {
+    if (!arrested) {
       return suspect.card;
-    }
-
-    if (!arrested && wrongOnce) {
-      if (suspect.name === selectedSuspect) {
-        return suspect.card;
-      }
-      if (suspect.name === CORRECT_ANSWER) {
-        return suspect.cardRe;
-      }
-      return suspect.cardFalse ?? suspect.card;
     }
 
     if (suspect.name === selectedSuspect) {
@@ -136,13 +134,8 @@ function SuspectSelect({ onSelect }) {
     return suspect.cardRe;
   };
 
-  const retryArrest = () => {
-    setArrested(false);
-    setSelectedSuspect(null);
-  };
-
-  if (showEndingVideo) {
-    return <CutsceneVideo src={endingVideo} onEnded={() => navigate("/ending", { replace: true })} />;
+  if (endingRoute) {
+    return <CutsceneVideo src={endingVideo} onEnded={() => navigate(endingRoute, { replace: true })} />;
   }
 
   return (
@@ -200,11 +193,6 @@ function SuspectSelect({ onSelect }) {
         </button>
       )}
 
-      {arrested && selectedSuspect !== CORRECT_ANSWER && (
-        <button type="button" className="arrest-btn" onClick={retryArrest} aria-label="재검거">
-          <img src={arrest} alt="" />
-        </button>
-      )}
     </div>
   );
 }

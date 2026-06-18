@@ -1,117 +1,115 @@
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const ENDING_VIDEO_SRC = "/your-ending-video.mp4";
+import handcuffsImage from "../../assets/수갑이미지.svg";
+import successTextImage from "../../assets/검거성공텍스트.svg";
+import reviewButtonImage from "../../assets/한마디남기기버튼.svg";
+import storyButtonImage from "../../assets/자세한스토리버튼.svg";
+import mainMenuButtonImage from "../../assets/메인메뉴버튼.svg";
 
 function Ending() {
   const navigate = useNavigate();
-  const [videoState, setVideoState] = useState("loading");
-  const showFallback = videoState !== "ready";
 
   return (
-    <main
-      style={{
-        position: "relative",
-        width: "100vw",
-        height: "100vh",
-        overflow: "hidden",
-        display: "grid",
-        placeItems: "center",
-        color: "#f6f0e8",
-        background:
-          "radial-gradient(circle at 50% 35%, rgba(120, 20, 20, 0.26), transparent 38%), linear-gradient(180deg, #080808 0%, #17100f 100%)",
-      }}
-    >
-      {videoState !== "error" && (
-        <video
-          src={ENDING_VIDEO_SRC}
-          autoPlay
-          muted
-          playsInline
-          onLoadedData={() => setVideoState("ready")}
-          onError={() => setVideoState("error")}
-          onEnded={() => navigate("/Review")}
-          style={{
-            position: "absolute",
-            inset: 0,
-            width: "100%",
-            height: "100%",
-            objectFit: "cover",
-            opacity: videoState === "ready" ? 1 : 0,
-          }}
-        />
-      )}
+    <main style={pageStyle}>
+      <img src="/room-assets/background.png" alt="" style={backgroundStyle} />
+      <div style={overlayStyle} />
 
-      {showFallback && (
-        <section
-          style={{
-            position: "relative",
-            zIndex: 1,
-            width: "min(720px, calc(100vw - 40px))",
-            padding: "42px 36px",
-            border: "1px solid rgba(255, 255, 255, 0.18)",
-            borderRadius: "8px",
-            textAlign: "center",
-            background: "rgba(8, 8, 8, 0.72)",
-            boxShadow: "0 24px 80px rgba(0, 0, 0, 0.55)",
-          }}
-        >
-          <p style={{ margin: "0 0 10px", color: "#c34b42", fontWeight: 800, letterSpacing: "0.08em" }}>
-            CASE CLOSED
-          </p>
-          <h1 style={{ margin: 0, fontSize: "clamp(2.4rem, 7vw, 5.6rem)", lineHeight: 1 }}>사건 해결</h1>
-          <p style={{ margin: "22px auto 34px", maxWidth: "520px", color: "#d8d0c8", lineHeight: 1.7 }}>
-            진범을 검거했습니다. 플레이 후기를 남기거나 바로 랭킹을 확인할 수 있습니다.
-          </p>
-          <div style={{ display: "flex", justifyContent: "center", gap: "12px", flexWrap: "wrap" }}>
-            <button type="button" onClick={() => navigate("/Review")} style={buttonStyle}>
-              한마디 남기기
-            </button>
-            <button type="button" onClick={() => navigate("/ranking")} style={secondaryButtonStyle}>
-              랭킹 보기
-            </button>
-          </div>
-        </section>
-      )}
+      <section style={contentStyle} aria-label="검거 성공">
+        <img src={handcuffsImage} alt="" style={handcuffsStyle} />
+        <img src={successTextImage} alt="범인 검거에 성공했습니다" style={successTextStyle} />
 
-      {videoState === "ready" && (
-        <div
-          style={{
-            position: "absolute",
-            right: "32px",
-            bottom: "32px",
-            zIndex: 1,
-            display: "flex",
-            gap: "10px",
-          }}
-        >
-          <button type="button" onClick={() => navigate("/Review")} style={buttonStyle}>
-            한마디 남기기
-          </button>
-          <button type="button" onClick={() => navigate("/ranking")} style={secondaryButtonStyle}>
-            랭킹 보기
-          </button>
-        </div>
-      )}
+        <nav style={buttonGroupStyle} aria-label="엔딩 메뉴">
+          <ImageButton image={reviewButtonImage} label="한마디 남기기" onClick={() => navigate("/Review")} />
+          <ImageButton image={storyButtonImage} label="자세한 스토리" onClick={() => navigate("/ending-story")} />
+          <ImageButton image={mainMenuButtonImage} label="메인메뉴" onClick={() => navigate("/")} />
+        </nav>
+      </section>
     </main>
   );
 }
 
+function ImageButton({ image, label, onClick }) {
+  return (
+    <button type="button" onClick={onClick} style={buttonStyle} aria-label={label}>
+      <img src={image} alt="" style={buttonImageStyle} />
+    </button>
+  );
+}
+
+const pageStyle = {
+  position: "relative",
+  width: "100vw",
+  height: "100vh",
+  overflow: "hidden",
+  display: "grid",
+  placeItems: "center",
+  background: "#050505",
+};
+
+const backgroundStyle = {
+  position: "absolute",
+  inset: 0,
+  width: "100%",
+  height: "100%",
+  objectFit: "cover",
+  filter: "blur(5px) grayscale(1)",
+  transform: "scale(1.04)",
+  opacity: 0.82,
+};
+
+const overlayStyle = {
+  position: "absolute",
+  inset: 0,
+  background: "rgba(0, 0, 0, 0.34)",
+};
+
+const contentStyle = {
+  position: "relative",
+  zIndex: 1,
+  width: "min(560px, calc(100vw - 36px))",
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
+  transform: "translateY(-8px)",
+};
+
+const handcuffsStyle = {
+  width: "min(360px, 60vw)",
+  height: "auto",
+  marginBottom: "18px",
+  filter: "drop-shadow(0 14px 20px rgba(0, 0, 0, 0.62))",
+};
+
+const successTextStyle = {
+  width: "min(260px, 58vw)",
+  height: "auto",
+  marginBottom: "26px",
+  filter: "drop-shadow(0 2px 5px rgba(0, 0, 0, 0.8))",
+};
+
+const buttonGroupStyle = {
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  gap: "6px",
+  flexWrap: "wrap",
+};
+
 const buttonStyle = {
-  minWidth: "148px",
-  minHeight: "46px",
+  width: "112px",
+  height: "38px",
+  padding: 0,
   border: 0,
-  borderRadius: "6px",
-  color: "#ffffff",
-  background: "#a92b25",
-  fontWeight: 800,
+  background: "transparent",
   cursor: "pointer",
 };
 
-const secondaryButtonStyle = {
-  ...buttonStyle,
-  border: "1px solid rgba(255, 255, 255, 0.28)",
-  background: "rgba(255, 255, 255, 0.08)",
+const buttonImageStyle = {
+  display: "block",
+  width: "100%",
+  height: "100%",
+  objectFit: "contain",
+  filter: "drop-shadow(0 2px 4px rgba(0, 0, 0, 0.75))",
 };
 
 export default Ending;

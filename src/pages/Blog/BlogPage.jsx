@@ -52,11 +52,6 @@ const posts = [
     ],
     comments: [
       {
-        author: 'minhoo0401',
-        text: '잘 생각했어. 당분간 연락 안 해도 괜찮아.',
-        time: '2026.05.12',
-      },
-      {
         author: 'gangjae000',
         text: '갑자기? 방금까지 여행 글 올렸잖아. 무슨 일 있어?',
         time: '2026.05.12',
@@ -100,11 +95,6 @@ const posts = [
         author: 'gangjae000',
         text: '다음에 또 가면 알려줘. 아니, 안 알려줘도 아마 알게 될 것 같아.',
         time: '2026.05.12',
-      },
-      {
-        author: 'minhoo0401',
-        text: '사진 확인했다. 다음 일정은 미리 말해줘.',
-        time: '2026.05.13',
       },
     ],
   },
