@@ -33,25 +33,33 @@ html, body {
 
 .menu-logo {
     display: block;
+    position: relative;
+    z-index: 0;
     width: min(700px, 88vw, 80svh);
     height: auto;
     margin-bottom: -10%;
     animation: oldLampFlicker 5.8s infinite;
+    pointer-events: none;
 }
 
 .menu-btn {
+    display: block;
+    position: relative;
+    z-index: 2;
+    width: min(400px, 74vw, 62svh);
+    aspect-ratio: 527 / 111;
     background: none;
-    justify-self: center;
     border: none;
     padding: 0;
     cursor: pointer;
     outline: none;
+    line-height: 0;
 }
 
 .menu-icon-img {
     display: block;
-    width: min(400px, 74vw, 62svh);
-    height: auto;
+    width: 100%;
+    height: 100%;
 }
 
 .settings-btn-wrapper {

@@ -15,7 +15,7 @@ import Tutorial_red from '../../assets/Tutorial_red.svg';
 
 const BGM_VOLUME_KEY = 'bgmVolume';
 const SFX_VOLUME_KEY = 'sfxVolume';
-const DEFAULT_BGM_VOLUME = 55;
+const DEFAULT_BGM_VOLUME = 10;
 const DEFAULT_SFX_VOLUME = 80;
 
 function getSavedVolume(key, defaultValue) {

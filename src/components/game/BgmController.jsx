@@ -7,7 +7,7 @@ const BGM_BY_AREA = {
 };
 
 const BGM_VOLUME_KEY = "bgmVolume";
-const DEFAULT_BGM_VOLUME = 55;
+const DEFAULT_BGM_VOLUME = 10;
 
 const INGAME_PATHS = [
   "/room",
