@@ -1,13 +1,15 @@
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import Timer from '../../components/game/Timer';
 import { hints, hintSelectPanelImage } from '../../constants/hints';
 import { useTimer } from '../../hooks/useTimer';
 
 function RoomPage() {
+  const navigate = useNavigate();
   const { startTimer } = useTimer();
   const [isHintOpen, setIsHintOpen] = useState(false);
+  const [isArrestConfirmOpen, setIsArrestConfirmOpen] = useState(false);
 
   useEffect(() => {
     startTimer();
@@ -24,9 +26,9 @@ function RoomPage() {
             <button className="room-control hint-control" type="button" aria-label="hint" onClick={() => setIsHintOpen(true)}>
               <img src="/room-assets/hint-button.png" alt="" />
             </button>
-            <Link className="room-control arrest-control" to="/SuspectSelect" aria-label="arrest">
+            <button className="room-control arrest-control" type="button" aria-label="arrest" onClick={() => setIsArrestConfirmOpen(true)}>
               <img src="/room-assets/arrest-button.png" alt="" />
-            </Link>
+            </button>
           </>
         ) : null}
 
@@ -72,6 +74,23 @@ function RoomPage() {
                     </button>
                   );
                 })}
+              </div>
+            </section>
+          </div>
+        ) : null}
+
+        {isArrestConfirmOpen ? (
+          <div className="arrest-confirm-overlay" role="dialog" aria-modal="true" aria-labelledby="arrest-confirm-title">
+            <section className="arrest-confirm-panel">
+              <h2 id="arrest-confirm-title">정말 범인을 찾으러 가시겠습니까?</h2>
+              <p>검거를 시작하면 수사실로 다시 돌아올 수 없습니다.</p>
+              <div className="arrest-confirm-actions">
+                <button type="button" className="arrest-confirm-cancel" onClick={() => setIsArrestConfirmOpen(false)}>
+                  취소
+                </button>
+                <button type="button" className="arrest-confirm-submit" onClick={() => navigate('/SuspectSelect')}>
+                  검거하러 가기
+                </button>
               </div>
             </section>
           </div>

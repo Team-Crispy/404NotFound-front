@@ -336,6 +336,76 @@ a {
   background: rgba(0, 0, 0, 0.38);
 }
 
+.arrest-confirm-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 70;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background: rgba(0, 0, 0, 0.62);
+}
+
+.arrest-confirm-panel {
+  width: min(520px, 100%);
+  padding: 28px;
+  border: 2px solid rgba(255, 255, 255, 0.76);
+  border-radius: 8px;
+  color: #ffffff;
+  background: rgba(18, 17, 16, 0.92);
+  box-shadow: 0 28px 80px rgba(0, 0, 0, 0.52);
+  text-align: center;
+}
+
+.arrest-confirm-panel h2 {
+  margin: 0 0 14px;
+  font-size: 1.55rem;
+  line-height: 1.35;
+}
+
+.arrest-confirm-panel p {
+  margin: 0;
+  color: #f3d4d4;
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.5;
+}
+
+.arrest-confirm-actions {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.arrest-confirm-actions button {
+  min-height: 46px;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 900;
+  cursor: pointer;
+  transition: transform 140ms ease, filter 140ms ease, background 140ms ease;
+}
+
+.arrest-confirm-actions button:hover,
+.arrest-confirm-actions button:focus-visible {
+  outline: 0;
+  filter: brightness(1.12);
+  transform: translateY(-2px);
+}
+
+.arrest-confirm-cancel {
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.arrest-confirm-submit {
+  border: 2px solid #e84d4d;
+  color: #ffffff;
+  background: #9f1f1f;
+}
+
 .hint-close {
   position: absolute;
   z-index: 3;
