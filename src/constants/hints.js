@@ -11,7 +11,7 @@ export const hintSelectPanelImage = hintSelectPanel;
 export const hints = [
   { id: '1', label: '노트북 비밀번호', image: hintCard1, detailImage: hintDetail1 },
   { id: '2', label: '결정적인 글', image: hintCard2, detailImage: hintDetail2 },
-  { id: '3', label: '노트북 비밀번호', image: hintCard3, detailImage: hintDetail3 },
+  { id: '3', label: '범인 힌트', image: hintCard3, detailImage: hintDetail3 },
 ];
 
 export function getHintById(hintId) {
